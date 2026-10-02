@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VCensinos | Login</title>
+  <link rel="stylesheet" href="../css/login_cadastro.css">
+  <link rel="shortcut icon" href="../img/logoPequenaBranca.png" type="image/x-icon">
+  <script type="module" src="https://www.gstatic.com/firebasejs/11.0.2/firebase-app.js"></script>
+  <script type="module" src="https://www.gstatic.com/firebasejs/11.0.2/firebase-auth.js"></script>
+</head>
+
+<body>
+  <div class="login">
+    <div class="container_login">
+      <!-- Primeiro -->
+      <div class="caixa_conteudo_login">
+        <div class="caixa">
+          <div class="header_caixa">
+            <a href="../index.html">
+              Voltar para página
+              <img src="../img/setaBranca.png" alt="">
+            </a>
+          </div>
+          <div class="conteudo_caixa">
+            <img src="../img/logogGrandeBranca.png" alt="">
+          </div>
+        </div>
+      </div>
+
+      <!-- Segundo -->
+      <div class="login_form1">
+        <div class="form_inputs">
+
+          <div class="escrita_form">
+            <h1>Faça seu login</h1>
+            <p>Não tem uma conta? <a href="register.html">Cadastre-se</a></p>
+          </div>
+
+          <div class="linha"></div>
+
+          <form id="login-form">
+            <label for="email">Email:</label>
+            <input type="email" id="email" required>
+            <label for="password">Senha:</label>
+            <input type="password" id="password" required>
+            <button type="submit">Entrar</button>
+          </form>
+
+          <!-- Mensagens de erro e sucesso -->
+          <div id="error-message" class="message error"></div>
+          <div id="success-message" class="message success"></div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="../js/cadastro/app.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,136 @@
+@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&family=PT+Mono&family=PT+Sans:ital,wght@0,400;0,700;1,400;1,700&family=Rethink+Sans:ital,wght@0,400..800;1,400..800&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    font-family: "Rethink Sans";
+}
+
+/* Introducao */
+
+.introducao {
+    width: 100%;
+    height: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #1c1c1c;
+}
+
+.container_introducao {
+    width: 1100px;
+    height: 200px;
+    display: flex;
+    justify-content: center;
+    align-items: left;
+    flex-direction: column;
+    margin: 10px;
+}
+
+.container_introducao h1 {
+    font-size: 35px;
+    color: #8136e3;
+}
+
+.container_introducao p {
+    color: rgb(167, 167, 167);
+    font-size: 16px;
+
+}
+
+.linha {
+    height: 1px;
+    width: 100%;
+    border: 10px;
+    margin-top: 10px;
+    background-color: #8136e3;
+}
+
+
+/* Cards dos grupos */
+
+.grupos {
+    width: 100%;
+    height: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background-color: #1c1c1c;
+}
+
+.container_grupos {
+    width: 1100px;
+    height: 300px;
+    margin: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.container_grupos img {
+    width: auto;
+    height: 100%;
+}
+
+.escrita_grupos {
+    width: 50%;
+    height: 100%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: left;
+    flex-direction: column;
+}
+
+.escrita_grupos h1 {
+    color: white;
+    border-bottom: 1px solid #8136e3;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.escrita_grupos p {
+    font-size: 15px;
+    margin-top: 20px;
+    color: rgb(167, 167, 167);
+}
+
+span {
+    color: #8136e3;
+}
+
+@media (max-width: 500px) {
+
+    .container_introducao {
+        width: 100%;
+    }
+
+    .grupos {
+        width: 100%;
+        height: auto;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+    }
+
+    .container_grupos {
+        width: 100%;
+        height: auto;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .escrita_grupos {
+        width: 95%;
+    }
+
+    .container_grupos img {
+        width: 100%;
+        height: auto;
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+}

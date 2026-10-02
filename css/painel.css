@@ -1,0 +1,109 @@
+@import url('https://fonts.googleapis.com/css2?family=Archivo+Black&family=Geist:wght@100..900&family=PT+Sans:ital,wght@0,400;0,700;1,400;1,700&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  font-family: "PT Sans";
+}
+
+span {
+  color: #8136e3;
+}
+
+.painel {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background-color: #1c1c1c;
+}
+
+.container_painel {
+  width: 900px;
+  height: 100%;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-direction: column;
+}
+
+.user-panel {
+  width: 900px;
+  height: 60px;
+  background-color: #141414;
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  margin-top: 30px;
+  border-radius: 10px;
+}
+
+.user-panel h1 {
+  font-size: 17px;
+  color: white;
+  margin-left: 20px;
+}
+
+.user-panel img {
+  width: 45px;
+  margin-left: 10px;
+}
+
+/* acoes */
+
+.acoes_painel {
+  width: 900px;
+  height: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: left;
+  flex-direction: column;
+}
+
+.acoes_painel h2 {
+  color: #c4c4c4;
+  font-size: 17px;
+  margin-bottom: 10px;
+}
+
+.acoes_painel button {
+  width: 80px;
+  height: 30px;
+  color: white;
+  font-weight: 600;
+  font-size: 14px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  background-color: #ca1313;
+  border-radius: 3px;
+}
+
+
+/* Responsivo */
+
+@media (max-width: 500px) {
+  .painel {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+  }
+
+  .container_painel {
+    width: 100%;
+    height: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .user-panel {
+    width: 90%;
+  }
+}

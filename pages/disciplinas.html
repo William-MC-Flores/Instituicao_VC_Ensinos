@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VCensinos | Explorar</title>
+    <link rel="shortcut icon" href="../img/logoPequenaBranca.png" type="image/x-icon">
+    <link rel="stylesheet" href="../css/disciplinas.css">
+    <link rel="stylesheet" href="../css/index.css">
+</head>
+
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container_header_disciplinas">
+            <div class="links_disciplinas">
+                <a href="../index.html"><img src="../img/logogGrandeBranca.png" alt=""></a>
+            </div>
+            <div class="pesquisar">
+                <div class="barra_pesquisa">
+                    <div class="pesquisarInput_lado">
+                        <img src="../img/search.png" alt="">
+                    </div>
+                    <input type="text" id="pesquisarInput" placeholder=" Escreva aqui sua busca..!">
+                </div>
+                <div class="acoes_disciplinas">
+                    <button id="cadastre-se" style="display: none;">Cadastre-se</button>
+                    <button id="painelButton" style="display: none;">Painel</button>
+                    <button id="logout-button" style="display: none;">Sair</button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Conteúdo -->
+    <div id="disciplinas">
+        <div class="container_disciplinas">
+            <div class="conteudo_disciplinas">
+                <div class="escrita_disciplinas">
+                    <h1>CATÁLOGO</h1>
+                    <p>Navegue por todo o conteúdo da VC ensino</p>
+                </div>
+
+                <div class="cabecario_disciplinas">
+                    <div class="filtro_categorias">
+                        <button data-categoria="todas">Todas</button>
+                        <button data-categoria="full-stack">Full-stack</button>
+                        <button data-categoria="back-end">Back-End</button>
+                        <button data-categoria="front-end">Front-End</button>
+                    </div>
+                </div>
+            </div>
+            <div class="linha_grande"></div>
+        </div>
+    </div>
+
+    <!-- Cards -->
+    <div class="cards_all">
+        <div class="cards"></div>
+    </div>
+
+
+    <!-- footer -->
+    <footer>
+        <div class="container_footer">
+
+            <div class="footer_img">
+                <img src="../img/logogGrandeBranca.png  " alt="" width="200px" height="200px">
+            </div>
+
+            <div class="linha_reta"></div>
+
+            <div class="links_footer">
+                <h1 class="sbT">LINKS</h1>
+                <a href="">Inicio</a>
+                <a href="">Explorar</a>
+                <a href="">Quem somos?</a>
+                <a href="">Creditos</a>
+
+            </div>
+
+            <div class="linha_reta"></div>
+
+
+            <div class="redes">
+                <h1 class="sbT">REDES</h1>
+                <img src="../img/index/instagram.png" alt="">
+                <img src="../img/index/facebook.png" alt="">
+            </div>
+
+            <div class="linha_reta"></div>
+            <div class="apoio">
+                <h1 class="sbT">Projeto aplicado</h1>
+                <p>2024/2</p>
+                <img src="../img/index/saoLucas.png" alt="">
+            </div>
+        </div>
+
+        <div class="politicas">
+            <div class="container_politicas">
+                <a class="sbT" href="politicas.html">NOSSAS POLITICAS</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Firebase e Scripts -->
+    <script type="module" src="../js/cadastro/dashboard.js"></script>
+    <script type="module" src="../js/disciplinas.js"></script>
+
+</body>
+
+</html>

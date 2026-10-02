@@ -1,0 +1,85 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+  
+}
+main{
+    width: 100%;
+    display: flex;
+    
+    color:#000000;
+    flex-direction: column;
+    align-items: center;
+  
+  
+    
+    
+}
+
+.pagina-politicas {
+    min-height: 60vh;
+    padding: 32px 0;
+    background-color: #ffffff;
+}
+
+.blocoTexto{
+    width: min(70%, 880px);
+    margin: 24px auto;
+    color: #202020;
+    text-align: justify;
+}
+
+.pagina-politicas h1 {
+    margin: 0 0 16px;
+    color: #202020;
+}
+
+.pagina-politicas p,
+.pagina-politicas li {
+    margin-bottom: 12px;
+    color: #303030;
+    line-height: 1.7;
+}
+
+.pagina-politicas ul {
+    padding-left: 24px;
+}
+
+@media (max-width: 700px) {
+    .blocoTexto {
+        width: 88%;
+        text-align: left;
+    }
+}
+
+strong{
+
+    color: #8C24BD;
+}
+
+   
+.btn-home {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    width: 50px;
+    height: 50px;
+    background-color:#8C24BD ; 
+    color: white;
+    border: none;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 18px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s;
+}
+
+.btn-home:hover {
+    background-color: #8C24BD;
+}

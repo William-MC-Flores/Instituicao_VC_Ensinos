@@ -1,0 +1,616 @@
+@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&family=PT+Mono&family=PT+Sans:ital,wght@0,400;0,700;1,400;1,700&family=Rethink+Sans:ital,wght@0,400..800;1,400..800&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    font-family: "Rethink Sans";
+}
+
+.index {
+    width: 100%;
+    height: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background-color: #1c1c1c;
+}
+
+.container_index {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.linha {
+    width: 100%;
+    height: 1px;
+    background-color: rgb(88, 88, 88);
+    border-radius: 10px;
+}
+
+/* foto */
+
+.foto_index{
+    width: 100%;
+    height:auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container_foto {
+    width: 1100px;
+    height: 500px;
+}
+
+.container_foto img{
+    width: 100%;
+    height: 100%;
+}
+
+
+/* Dilema */
+
+
+.dilema {
+    width: 100%;
+    height: 480px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.dilema h2 {
+    font-size: 35px;
+    color: white;
+    margin: 20px;
+}
+
+.container_dilema {
+    width: 1100px;
+    height: 300px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.caixa_dilema {
+    width: 250px;
+    height: 280px;
+    background-color: #8136e3;
+    margin: 30px;
+    box-shadow: 10px 10px 0px #4c1494;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.caixa_dilema h2 {
+    color: white;
+    font-size: 30px;
+}
+
+.caixa_dilema img {
+    width: 170px;
+    height: auto;
+}
+
+/* Cursos */
+
+.cursos_exibir {
+    width: 100%;
+    height: 400px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container_exibir {
+    width: 1100px;
+    height: 100%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: left;
+    flex-direction: column;
+}
+
+.escrita_exibir {
+    width: 100%;
+    height: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: left;
+    flex-direction: column;
+}
+
+.escrita_exibir h2 {
+    color: #8136e3;
+    font-size: 25px;
+    margin-bottom: 10px;
+}
+
+.escrita_exibir p {
+    font-size: 14px;
+    margin-bottom: 5px;
+    color: rgb(163, 163, 163);
+}
+
+.escrita_exibir a {
+    font-size: 14px;
+    text-decoration: none;
+    margin-bottom: 10px;
+    color: #8136e3;
+}
+
+#cards_exibir {
+    width: 100%;
+    height: 300px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+
+/* Quem somos e chame nos */
+
+
+#quem_somos {
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.tit {
+    width: 1100px;
+    margin-top: 50px;
+    height: 40px;
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    text-decoration: underline 2px #8136e3;
+}
+
+.tit h1 {
+    color: rgb(221, 221, 221);
+    font-size: 25px;
+}
+
+.container {
+    display: flex;
+    width: 1100px;
+    height: 100%;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 100px;
+}
+
+.texto {
+    width: 600px;
+    height: 350px;
+    text-align: justify;
+}
+
+h2 {
+    font-size: 17px;
+    color: #8136e3;
+}
+
+p {
+    font-size: 13px;
+    color: rgb(219, 219, 219);
+}
+
+.container img {
+    width: 500px;
+    height: 350px;
+}
+
+.resp {
+    color: rgb(199, 199, 199);
+}
+
+.icone {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    color: #9349f5;
+
+}
+
+.icone img {
+    margin-right: 5px;
+    width: 25px;
+    height: 25px;
+}
+
+#xiru {
+    width: 500px;
+    height: auto;
+}
+
+/* footer */
+
+
+footer {
+    width: 100%;
+    height: 300px;
+    background-color: #141414;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.container_footer {
+    width: 80%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.footer_img {
+    width: 400px;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.footer_img img {
+    width: 200px;
+    height: auto;
+}
+
+
+.links_footer {
+    width: 200px;
+    height: 150px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: left;
+    flex-direction: column;
+}
+
+.links_footer h1 {
+    font-size: 17px;
+    margin: 5px;
+    color: white;
+}
+
+.links_footer a {
+    color: rgb(151, 151, 151);
+    text-decoration: none;
+    margin: 5px;
+    font-size: 15px;
+}
+
+.redes {
+    width: 100px;
+    height: 150px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: left;
+    flex-direction: column;
+}
+
+.redes h1 {
+    font-size: 17px;
+  
+    color: white;
+
+}
+
+.redes img {
+    width: 30px;
+    margin: 5px;
+}
+
+.apoio {
+    width: 150px;
+    height: 150px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: left;
+    flex-direction: column;
+}
+
+.apoio h1 {
+    font-size: 17px;
+    color: white;
+}
+
+.apoio p {
+    width: 120px;
+    display: flex;
+    justify-content: right;
+    align-items: center;
+    font-size: 15px;
+    color: rgb(151, 151, 151);
+}
+
+.apoio img {
+    width: 100px;
+}
+
+.politicas {
+    width: 100%;
+    height: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container_politicas {
+    width: 1000px;
+    height: 100%;
+    display: flex;
+    justify-content: right;
+    align-items: center;
+}
+
+.container_politicas a {
+    font-size: 14px;
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+}
+.linha_reta{
+    margin-left: 5px;
+    margin-right: 5px;
+    height: 63px;
+    border: 0.5px solid white;
+}
+
+
+ @media (max-width: 900px){
+    .container_dilema{
+        display: flex;
+        flex-direction: column;
+        height: auto;
+        width: 100%;
+    }
+    .caixa_dilema{     
+        width: 100%;
+        height: 250px;
+        margin-top: 20px;
+        margin-bottom: 20px;
+    }
+    .dilema{
+        width: 390px;
+        height: auto;
+        display: flex;
+        flex-direction: column;
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+    .container_exibir{
+        width: 370px;
+    }
+    #quem_somos{
+        flex-direction: column;
+        height: 700px;
+    }
+    .container{
+        flex-direction: column;
+        gap: 50px;
+    }
+    .tit{
+        margin-bottom: 65px;
+        width: 380px;
+        height: 100px;
+    }
+    .texto{
+        width: 370px;
+        
+    }
+    iframe{
+        width: 370px;
+        height: 370px;
+    }
+    #xiru{
+        width: 370px;
+    }
+
+    .container_exibir a {
+        width: 100%;
+        height: 100%;
+    }
+    .cursos_exibir {
+        width: 100%;
+        height: 800px;
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+
+    .container_footer{
+        width: 100%;
+       
+    }
+    .footer_img{
+        width: 20%;
+        height: 20%;
+    }
+    .footer_img img{
+        width: 170px;
+        height: 170px;
+        margin-right: 20px;
+        margin-left: 20px;
+    }
+    footer{
+        width: 100%;
+    }
+    .politicas{
+        margin-right: 40px;
+    }
+}
+
+@media (max-width: 500px){
+
+    .foto_index {
+        width: 100%;
+        height: auto;
+        display: none;
+    }
+
+    body {
+        overflow-x: hidden;
+    }
+    .container_dilema{
+        display: flex;
+        flex-direction: column;
+        height: auto;
+        width: 100%;
+    }
+    .caixa_dilema{     
+        width: 100%;
+        height: 250px;
+        margin-top: 20px;
+        margin-bottom: 20px;
+    }
+    .dilema{
+        width: 100%;
+        height: auto;
+        display: flex;
+        flex-direction: column;
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+    .container_exibir{
+        width: 370px;
+    }
+
+    .caixa_dilema {
+        width: 250px;
+        height: auto;
+        padding: 0px;
+    }
+
+    .caixa_dilema img {
+        width: 100%;
+        display: none;
+    }
+
+    #quem_somos {
+        width: 100%;
+        height: auto;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        margin-bottom: 50px;
+    }
+
+    .container {
+        width: 90%;
+        height: 400px;
+        justify-content: center;
+        align-items: center;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .container img {
+        width: 100%;
+        height: auto;
+    }
+
+    .texto {
+        width: 100%;
+        display: flex;
+        justify-content: flex-start;
+        align-items: left;
+        flex-direction: column;
+    }
+
+    .tit {
+        width: 100%;
+        display: flex;
+        height: 20px;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .container iframe {
+        width: 100%;
+        height: 200px;
+    }
+
+    .texto img {
+        width: 20px;
+    }
+    .cursos_exibir {
+        width: 100%;
+        height: 800px;
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+
+    .container_exibir {
+        width: 90%;
+    }
+
+    footer{
+        width: 100%;
+        height: auto;
+    }
+    
+    .links_footer .sbT, .links_footer a, .redes .sbT, .apoio .sbT{
+        font-size: 8pt;
+        
+    }
+
+    .container_footer {
+        width: 100%;
+        height: 100%;
+        flex-direction: column;
+    }
+
+    .linha_reta {
+        width: 40%;
+        height: 1px;
+    }
+
+    .apoio{
+        width: 100%;
+        height: auto;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .links_footer {
+        width: 100%;
+        height: auto;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .redes {
+        width: 100%;
+        height: auto;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .footer_img {
+        width: 100%;
+    }
+    .footer_img img{
+        width: 50%;
+        height: auto;
+    }
+}

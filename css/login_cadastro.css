@@ -1,0 +1,290 @@
+@import url('https://fonts.googleapis.com/css2?family=Archivo+Black&family=Geist:wght@100..900&family=PT+Sans:ital,wght@0,400;0,700;1,400;1,700&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    font-family: "PT Sans";
+}
+
+.linha {
+    width: 100%;
+    height: 1px;
+    border-radius: 10px;
+    background-color: rgb(163, 163, 163);
+}
+
+.login {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #1c1c1c;
+}
+
+.container_login {
+    width: 1300px;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.caixa_conteudo_login {
+    width: 50%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.caixa {
+    background-color: #242424;
+    width: 650px;
+    height: 600px;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.header_caixa {
+    width: 100%;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: right;
+}
+
+.header_caixa a {
+    width: 130px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    color: hwb(0 100% 0%);
+    border-radius: 10px;
+    font-size: 11px;
+    margin-right: 10px;
+    background-color: #721d7e;
+
+}
+
+.header_caixa img {
+    width: 20px;
+}
+
+
+.conteudo_caixa {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-repeat: no-repeat;
+}
+
+.conteudo_caixa img {
+    width: 250px;
+}
+
+/* login */
+
+.login_form1 {
+    width: 50%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.form_inputs {
+    width: 500px;
+    height: 500px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.escrita_form {
+    width: 100%;
+    height: 100px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: left;
+}
+
+.escrita_form h1 {
+    font-size: 40px;
+    color: white;
+}
+
+.escrita_form p {
+    font-size: 14px;
+    color: rgb(170, 170, 170);
+}
+
+.escrita_form a {
+    text-decoration: none;
+    color: #8136e3;
+}
+
+#login-form {
+    width: 100%;
+    height: 300px;
+    display: flex;
+    justify-content: center;
+    align-items: left;
+    flex-direction: column;
+}
+
+#login-form input {
+    width: 490px;
+    height: 40px;
+    padding-left: 10px;
+    background-color: #242424;
+    border: none;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    color: rgb(167, 167, 167);
+}
+
+#login-form input:hover {
+    border: 1px solid #8136e3;
+}
+
+#login-form label {
+    font-size: 14px;
+    color: rgb(182, 182, 182);
+}
+
+#login-form button {
+    width: 100%;
+    height: 35px;
+    border: none;
+    font-size: 15px;
+    background-color: #8136e3;
+    color: white;
+    transition: 0.5s;
+}
+
+#login-form button:hover {
+    background-color: white;
+    color: rgb(48, 48, 48);
+}
+
+/* erro e login */
+
+#error-message {
+    width: auto;
+    height: 20px;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+#success-message {
+    width: auto;
+    height: 20px;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+@media(max-width: 1000px) {
+    .login {
+        width: 100%;
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .container_login {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+    }
+
+    .caixa_conteudo_login {
+        width: 100%;
+        height: 300px;
+    }
+
+    .caixa {
+        width: 100%;
+        height: 200px;
+        border-radius: 0px;
+    }
+
+    .login_form1 {
+        width: 100%;
+    }
+}
+
+@media(max-width: 500px) {
+    body {
+        background-color: #1c1c1c;
+    }
+
+    .login{
+        width: 100%;
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .container_login {
+        width: 100%;
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+    }
+    .form_inputs {
+        width: 100%;
+        height: 100vh;
+    }
+
+    .escrita_form {
+        width: 100%;
+        height: auto;
+        padding-bottom: 10px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+    }
+
+    #login-form {
+        width: 80%;
+        height: auto;
+        padding-top: 20px;
+    }
+
+    #login-form input {
+        width: 100%;
+    }
+
+    #register-form {
+        width: 80%;
+        height: auto;
+        padding-top: 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+    }
+
+    #register-form input {
+        width: 100%;
+    }
+} 
