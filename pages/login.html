@@ -1,63 +1,41 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>VCensinos | Login</title>
+  <title>VC Ensinos | Login</title>
   <link rel="stylesheet" href="../css/login_cadastro.css">
   <link rel="shortcut icon" href="../img/logoPequenaBranca.png" type="image/x-icon">
-  <script type="module" src="https://www.gstatic.com/firebasejs/11.0.2/firebase-app.js"></script>
-  <script type="module" src="https://www.gstatic.com/firebasejs/11.0.2/firebase-auth.js"></script>
 </head>
-
 <body>
-  <div class="login">
+  <main class="login">
     <div class="container_login">
-      <!-- Primeiro -->
-      <div class="caixa_conteudo_login">
+      <section class="caixa_conteudo_login" aria-label="VC Ensinos">
         <div class="caixa">
-          <div class="header_caixa">
-            <a href="../index.html">
-              Voltar para página
-              <img src="../img/setaBranca.png" alt="">
-            </a>
-          </div>
-          <div class="conteudo_caixa">
-            <img src="../img/logogGrandeBranca.png" alt="">
-          </div>
+          <div class="header_caixa"><a href="../index.php">Voltar para a página <img src="../img/setaBranca.png" alt=""></a></div>
+          <div class="conteudo_caixa"><img src="../img/logogGrandeBranca.png" alt="VC Ensinos"></div>
         </div>
-      </div>
-
-      <!-- Segundo -->
-      <div class="login_form1">
+      </section>
+      <section class="login_form1">
         <div class="form_inputs">
-
           <div class="escrita_form">
             <h1>Faça seu login</h1>
             <p>Não tem uma conta? <a href="register.html">Cadastre-se</a></p>
           </div>
-
           <div class="linha"></div>
-
           <form id="login-form">
-            <label for="email">Email:</label>
-            <input type="email" id="email" required>
-            <label for="password">Senha:</label>
-            <input type="password" id="password" required>
+            <label for="email">E-mail</label>
+            <input type="email" id="email" name="email" autocomplete="email" required>
+            <label for="password">Senha</label>
+            <input type="password" id="password" name="password" autocomplete="current-password" required>
             <button type="submit">Entrar</button>
           </form>
-
-          <!-- Mensagens de erro e sucesso -->
-          <div id="error-message" class="message error"></div>
-          <div id="success-message" class="message success"></div>
-
+          <div id="error-message" class="message error" role="alert" aria-live="polite"></div>
+          <div id="success-message" class="message success" role="status" aria-live="polite"></div>
         </div>
-      </div>
+      </section>
     </div>
-  </div>
-
+  </main>
   <script type="module" src="../js/cadastro/app.js"></script>
 </body>
-
 </html>

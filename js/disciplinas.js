@@ -1,34 +1,22 @@
-import { onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-auth.js";
-import { auth } from "./cadastro/firebase.js";
+import { authMe, authPost } from "./cadastro/auth-api.js";
 
-// Verificar o estado de autenticação do usuário
 let usuarioLogado = null;
+try {
+    const sessao = await authMe();
+    usuarioLogado = sessao.authenticated ? sessao.user : null;
+} catch (error) {
+    console.error("Falha ao consultar autenticação:", error);
+}
 
-onAuthStateChanged(auth, (user) => {
-    if (user) {
-        console.log("Usuário logado:", user.email);
-        usuarioLogado = user; // Armazenar o usuário logado
-    } else {
-        usuarioLogado = null; // Nenhum usuário logado
+const logoutButton = document.getElementById("logout-btn") || document.getElementById("logout-button");
+logoutButton?.addEventListener("click", async () => {
+    try {
+        const result = await authPost("logout");
+        if (result.ok) window.location.href = "../pages/login.html";
+    } catch (error) {
+        console.error("Falha ao sair:", error);
     }
 });
-
-
-
-// Função de logout
-const logoutButton = document.getElementById("logout-btn");
-if (logoutButton) {
-    logoutButton.addEventListener("click", () => {
-        signOut(auth)
-            .then(() => {
-                console.log("Usuário deslogado");
-                window.location.href = "../pages/login.html";
-            })
-            .catch((error) => {
-                console.error("Erro ao deslogar:", error.message);
-            });
-    });
-}
 
 // Definir as disciplinas
 const disciplinas = [
@@ -273,6 +261,3 @@ pesquisarInput?.addEventListener("input", () => {
     termoBusca = pesquisarInput.value.trim().toLowerCase();
     aplicarFiltros();
 });
-
-
-

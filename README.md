@@ -1,38 +1,18 @@
-# VC Ensinos
+# VC Ensinos — InfinityFree
 
-Plataforma educacional com conteúdo de cursos de tecnologia. A migração para PHP começou pelas páginas públicas de início e catálogo; as páginas HTML antigas continuam disponíveis enquanto a conversão acontece por etapas.
+Site educacional com páginas institucionais, catálogo, cursos e autenticação simples por PHP/MySQL. A implantação suportada é uma conta InfinityFree usando o subdomínio gratuito fornecido pela hospedagem; não configure domínio próprio.
 
-## Requisitos
+## Implantação
 
-- PHP 8.2 ou superior com a extensão padrão `cli`.
-- Node.js 18 ou superior para os scripts de autenticação Firebase.
+Siga [docs/CONFIGURAR-AUTENTICACAO-PHP.md](docs/CONFIGURAR-AUTENTICACAO-PHP.md). Resumo:
 
-## Executar localmente
+1. Crie/ative o subdomínio gratuito e o certificado HTTPS no painel InfinityFree.
+2. Envie os arquivos do site para a pasta `htdocs` da conta.
+3. Crie o banco MySQL no painel InfinityFree, importe `database/schema.sql` pelo phpMyAdmin da hospedagem e configure `php/config/config.php` com os dados fornecidos no painel.
+4. Acesse o subdomínio HTTPS atribuído à conta.
 
-Na raiz do projeto, inicie o servidor PHP embutido:
+O site requer PHP 8.1 ou superior com `PDO MySQL`, MySQL/MariaDB e Apache. Não requer Composer, npm, envio de e-mail ou domínio próprio.
 
-```powershell
-php -S localhost:8000
-```
+Cadastro, login, sessão e painel são implementados em `php/api/auth.php` e `pages/painel.php`. Não há confirmação de e-mail nem recuperação de senha. Senhas são armazenadas com `password_hash`; formulários usam CSRF e a API limita tentativas.
 
-Abra `http://localhost:8000/`. O PHP embutido é para desenvolvimento local, não para produção.
-
-Valide sintaxe PHP antes de publicar:
-
-```powershell
-Get-ChildItem -Recurse -Filter *.php | ForEach-Object { php -l $_.FullName }
-```
-
-## Estrutura PHP atual
-
-- `index.php`: página inicial.
-- `pages/disciplinas.php`: catálogo.
-- `pages/creditos.php` e `pages/politicas.php`: páginas institucionais.
-- `php/includes/bootstrap.php`: utilitários de URL e escape HTML.
-- `php/includes/header.php` e `footer.php`: estrutura compartilhada.
-
-## Migração em andamento
-
-Login, cadastro, painel e conteúdo dos cursos ainda usam as páginas HTML existentes. As páginas institucionais convertidas mantêm os arquivos HTML antigos como fallback. A autenticação permanece no Firebase; não há migração de senhas ou criação de sessões PHP nesta etapa. Não armazene credenciais ou segredos em arquivos servidos publicamente.
-
-Consulte [docs/ANALISE-E-PLANO.md](docs/ANALISE-E-PLANO.md) para o diagnóstico e a sequência recomendada de modernização.
+O código-fonte também inclui arquivos HTML estáticos para páginas e cursos. O Apache prioriza `index.php` para que a página inicial use os caminhos e recursos da aplicação.

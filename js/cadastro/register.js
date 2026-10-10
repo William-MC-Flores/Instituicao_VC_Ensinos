@@ -1,31 +1,28 @@
-import { createUserWithEmailAndPassword, updateProfile } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-auth.js";
-import { auth } from "./firebase.js";
+import { authPost } from "./auth-api.js";
 
-// Função de cadastro
 const registerForm = document.getElementById("register-form");
-registerForm.addEventListener("submit", (e) => {
-  e.preventDefault();
-  const email = document.getElementById("email").value;
-  const nome = document.getElementById("nome").value; // Capturar o nome
-  const password = document.getElementById("password").value;
+const errorMessage = document.getElementById("error-message");
+const successMessage = document.getElementById("success-message");
 
-  createUserWithEmailAndPassword(auth, email, password)
-    .then((userCredential) => {
-      // Cadastro bem-sucedido
-      const user = userCredential.user;
+registerForm?.addEventListener("submit", async (event) => {
+  event.preventDefault();
+  errorMessage.textContent = "";
+  successMessage.textContent = "";
+  const submitButton = registerForm.querySelector('button[type="submit"]');
+  submitButton.disabled = true;
 
-      // Atualizar o perfil do usuário com o nome
-      updateProfile(user, {
-        displayName: nome
-      }).then(() => {
-        console.log("Nome de usuário atualizado:", nome);
-        // Redirecionar para a página de login
-        window.location.href = "../pages/login.html";
-      }).catch((error) => {
-        console.error("Erro ao atualizar o nome de usuário:", error.message);
-      });
-    })
-    .catch((error) => {
-      console.error("Erro ao cadastrar:", error.message);
+  try {
+    const result = await authPost("register", {
+      name: document.getElementById("nome").value.trim(),
+      email: document.getElementById("email").value.trim(),
+      password: document.getElementById("password").value,
     });
+    if (result.ok) successMessage.textContent = result.message;
+    else errorMessage.textContent = result.message || "Confira os dados e tente novamente.";
+  } catch (error) {
+    console.error("Falha no cadastro:", error);
+    errorMessage.textContent = "Não foi possível conectar ao servidor. Tente novamente.";
+  } finally {
+    submitButton.disabled = false;
+  }
 });

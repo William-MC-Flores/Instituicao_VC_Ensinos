@@ -1,14 +1,11 @@
+import { authPost } from "./auth-api.js";
 
-import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-auth.js";
-import { auth } from "./firebase.js";
-
-const userNameElement = document.getElementById("user-name");
-
-onAuthStateChanged(auth, (user) => {
-  if (!user) {
-    window.location.href = "../pages/login.html";
-    return;
+const logoutButton = document.getElementById("logout-button");
+logoutButton?.addEventListener("click", async () => {
+  try {
+    const result = await authPost("logout");
+    if (result.ok) window.location.href = "login.html";
+  } catch (error) {
+    console.error("Falha ao encerrar sessão:", error);
   }
-
-  userNameElement.textContent = user.displayName || user.email || "Usuário";
 });

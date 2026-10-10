@@ -1,50 +1,32 @@
-import { onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-auth.js";
-import { auth } from "./firebase.js";
+import { authMe, authPost } from "./auth-api.js";
 
-// Selecionar os elementos do DOM
 const cadastroButton = document.getElementById("cadastre-se");
 const painelButton = document.getElementById("painelButton");
 const logoutButton = document.getElementById("logout-button");
 const pageUrl = (page) => new URL(`../../pages/${page}`, import.meta.url).href;
 
-// Inicializar os botões com estado padrão (não visíveis)
-if (cadastroButton) cadastroButton.style.display = "none";
-if (painelButton) painelButton.style.display = "none";
-if (logoutButton) logoutButton.style.display = "none";
+for (const button of [cadastroButton, painelButton, logoutButton]) {
+  if (button) button.style.display = "none";
+}
 
-// Verificar se o usuário está autenticado
-onAuthStateChanged(auth, (user) => {
-  if (user) {
-    // Usuário está logado
+try {
+  const session = await authMe();
+  if (session.authenticated) {
     if (painelButton) painelButton.style.display = "inline-block";
     if (logoutButton) logoutButton.style.display = "inline-block";
-    if (cadastroButton) cadastroButton.style.display = "none";
-  } else {
-    // Usuário não está logado
-    if (painelButton) painelButton.style.display = "none";
-    if (logoutButton) logoutButton.style.display = "none";
-    if (cadastroButton) cadastroButton.style.display = "inline-block";
+  } else if (cadastroButton) cadastroButton.style.display = "inline-block";
+} catch (error) {
+  console.error("Falha ao consultar sessão:", error);
+  if (cadastroButton) cadastroButton.style.display = "inline-block";
+}
+
+painelButton?.addEventListener("click", () => { window.location.href = pageUrl("painel.php"); });
+cadastroButton?.addEventListener("click", () => { window.location.href = pageUrl("register.html"); });
+logoutButton?.addEventListener("click", async () => {
+  try {
+    const result = await authPost("logout");
+    if (result.ok) window.location.href = pageUrl("login.html");
+  } catch (error) {
+    console.error("Falha ao sair:", error);
   }
-});
-
-// Evento de clique no botão "Painel" (quando o usuário está logado)
-painelButton?.addEventListener("click", () => {
-  window.location.href = pageUrl("painel.html");
-});
-
-// Evento de clique no botão "Logout"
-logoutButton?.addEventListener("click", () => {
-  signOut(auth)
-    .then(() => {
-      console.log("Usuário deslogado.");
-      window.location.href = pageUrl("login.html");
-    })
-    .catch((error) => {
-      console.error("Erro ao fazer logout:", error.message);
-    });
-});
-
-// Evento de clique no botão "Cadastre-se"
-cadastroButton?.addEventListener("click", () => {
-  window.location.href = pageUrl("register.html");
 });
