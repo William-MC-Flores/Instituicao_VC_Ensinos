@@ -39,6 +39,7 @@ function app_base_path(): string
     } elseif (basename($directory) === 'pages') {
         $directory = dirname($directory);
     }
+    $directory = str_replace('\\', '/', $directory);
     return rtrim($directory, '/');
 }
 

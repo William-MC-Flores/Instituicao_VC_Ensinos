@@ -43,7 +43,7 @@ const verCards = (ver) => {
                     <img src="${a.image}" alt="">
                 </div>
                 <div class="duracao_card">
-                    <img src="img/duracao.png" alt="Duração">
+                    <i class="fa-regular fa-clock" aria-hidden="true"></i>
                     <h2>${a.duracao}</h2>
                 </div>
                 <div class="escrita_card">
@@ -51,11 +51,11 @@ const verCards = (ver) => {
                 </div>
                 <div class="item_dificuldade">
                     <div class="dificuldade_card">
-                        <img src="img/difficult.png" alt="Dificuldade">
+                        <i class="fa-solid fa-chart-simple" aria-hidden="true"></i>
                         <h2>${a.dificuldade}</h2>
                     </div>
                     <div class="dificuldade_card">
-                        <img src="img/categoria.png" alt="Categoria">
+                        <i class="fa-solid fa-layer-group" aria-hidden="true"></i>
                         <h2>${a.categoria}</h2>
                     </div>
                 </div>

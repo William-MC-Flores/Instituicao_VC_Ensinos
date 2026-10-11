@@ -15,10 +15,10 @@ require dirname(__DIR__) . '/php/includes/header.php';
         </div>
         <div class="cabecario_disciplinas">
           <div class="filtro_categorias" aria-label="Filtrar cursos por categoria">
-            <button type="button" data-categoria="todas">Todas</button>
-            <button type="button" data-categoria="full-stack">Full-stack</button>
-            <button type="button" data-categoria="back-end">Back-End</button>
-            <button type="button" data-categoria="front-end">Front-End</button>
+              <button type="button" data-categoria="todas" aria-pressed="true"><i class="fa-solid fa-layer-group" aria-hidden="true"></i>Todas</button>
+              <button type="button" data-categoria="full-stack" aria-pressed="false"><i class="fa-solid fa-code" aria-hidden="true"></i>Full-stack</button>
+              <button type="button" data-categoria="back-end" aria-pressed="false"><i class="fa-solid fa-server" aria-hidden="true"></i>Back-End</button>
+              <button type="button" data-categoria="front-end" aria-pressed="false"><i class="fa-solid fa-palette" aria-hidden="true"></i>Front-End</button>
           </div>
         </div>
       </div>

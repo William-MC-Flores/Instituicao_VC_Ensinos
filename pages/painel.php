@@ -32,6 +32,9 @@ if (!$user) {
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="../css/painel.css">
   <link rel="stylesheet" href="../css/disciplinas.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+  <script src="../js/theme.js"></script>
+  <link rel="stylesheet" href="../css/design-system.css?v=20261015">
   <link rel="shortcut icon" href="../img/logoPequenaBranca.png" type="image/x-icon">
   <title>VC Ensinos | Painel</title>
 </head>
@@ -40,16 +43,20 @@ if (!$user) {
     <div class="container_header_disciplinas">
       <div class="links_disciplinas">
         <a href="../index.php"><img src="../img/logogGrandeBranca.png" alt="VC Ensinos"></a>
-        <a href="disciplinas.php">Explorar</a>
-        <a href="../index.php#quem_somos">Quem somos?</a>
+        <a href="disciplinas.php"><i class="fa-solid fa-compass" aria-hidden="true"></i>Explorar</a>
+        <a href="../index.php#quem_somos"><i class="fa-solid fa-circle-info" aria-hidden="true"></i>Quem somos?</a>
       </div>
-      <button id="logout-button" type="button">Sair</button>
+      <button class="theme-toggle" type="button" data-theme-toggle aria-label="Ativar tema claro" title="Ativar tema claro">
+        <i class="fa-solid fa-sun" data-theme-icon aria-hidden="true"></i>
+        <span data-theme-label>Claro</span>
+      </button>
+      <button id="logout-button" type="button"><i class="fa-solid fa-right-from-bracket" aria-hidden="true"></i>Sair</button>
     </div>
   </header>
   <main class="painel">
     <div class="container_painel">
       <div class="user-panel">
-        <img src="../img/user.png" alt="">
+        <i class="user-panel__avatar fa-solid fa-circle-user" aria-hidden="true"></i>
         <h1>Bem-vindo de volta, <span id="user-name"><?= app_escape((string) $user['name']) ?></span>!</h1>
         <p><?= app_escape((string) $user['email']) ?></p>
       </div>

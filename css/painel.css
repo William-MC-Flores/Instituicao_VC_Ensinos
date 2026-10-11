@@ -46,7 +46,7 @@ span {
   margin-left: 20px;
 }
 
-.user-panel img {
+.user-panel__avatar {
   width: 45px;
   margin-left: 10px;
 }

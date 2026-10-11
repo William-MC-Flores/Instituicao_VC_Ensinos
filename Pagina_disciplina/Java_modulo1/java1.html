@@ -6,6 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../../css/templates_disciplina.css">
     <link rel="stylesheet" href="../../css/index.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <script src="../../js/theme.js"></script>
+    <link rel="stylesheet" href="../../css/design-system.css?v=20261015">
     <title>Disciplinas</title>
 </head>
 
@@ -20,7 +23,11 @@
                 <div class="links_header_curso"></div>
             </div>
 
-            <button class="header_compartilhe">Compartilhar <img src="../../img/compartilhe.png" alt=""></button>
+            <button class="header_compartilhe"><i class="fa-solid fa-share-nodes" aria-hidden="true"></i>Compartilhar</button>
+            <button class="theme-toggle" type="button" data-theme-toggle aria-label="Ativar tema claro" title="Ativar tema claro">
+                <i class="fa-solid fa-sun" data-theme-icon aria-hidden="true"></i>
+                <span data-theme-label>Claro</span>
+            </button>
 
         </div>
 
@@ -31,7 +38,7 @@
         <div class="popup">
             <div class="escrita_popup">
                 <label for="linkInput">Compartilhe nossos cursos!</label>
-                <button id="closeButton"><img src="../../img/close_compartihe.png" alt=""></button>
+                <button id="closeButton" type="button" aria-label="Fechar"><i class="fa-solid fa-xmark" aria-hidden="true"></i></button>
             </div>
             <input type="text" id="linkInput" readonly />
             <p>Copie o link e seja feliz :D</p>
@@ -45,7 +52,7 @@
             <div class="escrita_topicos">
                 <h1>Conteúdos do curso</h1>
                 <button id="toggleTopicos">
-                    <img src="../../img/menosIcon.png" alt="" id="toggleIcon">
+                    <i class="fa-solid fa-minus" id="toggleIcon" aria-hidden="true"></i>
                 </button>
             </div>
             <div class="elementos"></div>
@@ -62,42 +69,38 @@
 
     <footer>
         <div class="container_footer">
-    
-          <div class="footer_img">
-            <img src="../../img/logogGrandeBranca.png  " alt="" width="200px" height="200px">
+          <div class="footer_brand">
+            <div class="footer_img"><img src="../../img/logogGrandeBranca.png" alt="VC Ensinos"></div>
+            <p>Aprenda, ensine e contribua com a comunidade de tecnologia.</p>
+            <div class="redes" aria-label="Redes sociais">
+              <span class="sbT">Acompanhe a VC Ensinos</span>
+              <i class="fa-brands fa-instagram" role="img" aria-label="Instagram"></i>
+              <i class="fa-brands fa-facebook" role="img" aria-label="Facebook"></i>
+            </div>
           </div>
-    
-          <div class="linha_reta"></div>
-    
-          <div class="links_footer">
-            <h1 class="sbT">LINKS</h1>
-            <a href="">Inicio</a>
-            <a href="">Explorar</a>
-            <a href="">Quem somos?</a>
-            <a href="">Creditos</a>
-    
+          <nav class="links_footer" aria-label="Institucional">
+            <h2 class="sbT">Institucional</h2>
+            <a href="../../index.php#quem_somos">Quem somos?</a>
+            <a href="../../pages/creditos.php">Créditos</a>
+            <a href="../../pages/politicas.php">Termos de uso</a>
           </div>
-    
-          <div class="linha_reta"></div>
-    
-    
-          <div class="redes">
-            <h1 class="sbT">REDES</h1>
-            <img src="../../img/index/instagram.png" alt="">
-            <img src="../../img/index/facebook.png" alt="">
-          </div>
-    
-          <div class="linha_reta"></div>
-          <div class="apoio">
-            <h1 class="sbT">Projeto aplicado</h1>
-            <p>2024/2</p>
-            <img src="../../img/index/saoLucas.png" alt="">
+          <nav class="apoio footer_learning" aria-label="Aprenda">
+            <h2 class="sbT">Aprenda</h2>
+            <a href="../../pages/disciplinas.php">Explorar cursos</a>
+            <a href="../../pages/register.html">Crie sua conta</a>
+            <a href="../../pages/login.html">Entrar</a>
+          </nav>
+          <div class="footer_contact">
+            <h2 class="sbT">Fale conosco</h2>
+            <a href="mailto:vc.ensinos2025@gmail.com"><i class="fa-solid fa-envelope" aria-hidden="true"></i>vc.ensinos2025@gmail.com</a>
+            <a href="tel:+555134517557"><i class="fa-solid fa-phone" aria-hidden="true"></i>+55 (51) 3451-7557</a>
+            <div class="footer_support"><span>Projeto aplicado</span><img src="../../img/index/saoLucas.png" alt="Colégio São Lucas"></div>
           </div>
         </div>
-    
-        <div class="politicas">
-          <div class="container_politicas">
-            <a class="sbT" href="pages/politicas.html">NOSSAS POLITICAS</a>
+        <div class="footer_bottom">
+          <div class="footer_bottom_inner">
+            <p>&copy; 2026 VC Ensinos. Todos os direitos reservados.</p>
+            <div><a href="../../pages/politicas.php">Privacidade e termos</a><a href="../../pages/creditos.php">Créditos</a></div>
           </div>
         </div>
       </footer>

@@ -8,6 +8,9 @@
     <link rel="shortcut icon" href="../img/logoPequenaBranca.png" type="image/x-icon">
     <link rel="stylesheet" href="../css/disciplinas.css">
     <link rel="stylesheet" href="../css/index.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <script src="../js/theme.js"></script>
+    <link rel="stylesheet" href="../css/design-system.css?v=20261015">
 </head>
 
 <body>
@@ -20,11 +23,15 @@
             <div class="pesquisar">
                 <div class="barra_pesquisa">
                     <div class="pesquisarInput_lado">
-                        <img src="../img/search.png" alt="">
+                        <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
                     </div>
                     <input type="text" id="pesquisarInput" placeholder=" Escreva aqui sua busca..!">
                 </div>
                 <div class="acoes_disciplinas">
+                    <button class="theme-toggle" type="button" data-theme-toggle aria-label="Ativar tema claro" title="Ativar tema claro">
+                        <i class="fa-solid fa-sun" data-theme-icon aria-hidden="true"></i>
+                        <span data-theme-label>Claro</span>
+                    </button>
                     <button id="cadastre-se" style="display: none;">Cadastre-se</button>
                     <button id="painelButton" style="display: none;">Painel</button>
                     <button id="logout-button" style="display: none;">Sair</button>
@@ -44,10 +51,10 @@
 
                 <div class="cabecario_disciplinas">
                     <div class="filtro_categorias">
-                        <button data-categoria="todas">Todas</button>
-                        <button data-categoria="full-stack">Full-stack</button>
-                        <button data-categoria="back-end">Back-End</button>
-                        <button data-categoria="front-end">Front-End</button>
+                        <button data-categoria="todas"><i class="fa-solid fa-layer-group" aria-hidden="true"></i>Todas</button>
+                        <button data-categoria="full-stack"><i class="fa-solid fa-code" aria-hidden="true"></i>Full-stack</button>
+                        <button data-categoria="back-end"><i class="fa-solid fa-server" aria-hidden="true"></i>Back-End</button>
+                        <button data-categoria="front-end"><i class="fa-solid fa-palette" aria-hidden="true"></i>Front-End</button>
                     </div>
                 </div>
             </div>
@@ -64,42 +71,38 @@
     <!-- footer -->
     <footer>
         <div class="container_footer">
-
-            <div class="footer_img">
-                <img src="../img/logogGrandeBranca.png  " alt="" width="200px" height="200px">
+            <div class="footer_brand">
+                <div class="footer_img"><img src="../img/logogGrandeBranca.png" alt="VC Ensinos"></div>
+                <p>Aprenda, ensine e contribua com a comunidade de tecnologia.</p>
+                <div class="redes" aria-label="Redes sociais">
+                    <span class="sbT">Acompanhe a VC Ensinos</span>
+                    <i class="fa-brands fa-instagram" role="img" aria-label="Instagram"></i>
+                    <i class="fa-brands fa-facebook" role="img" aria-label="Facebook"></i>
+                </div>
             </div>
-
-            <div class="linha_reta"></div>
-
-            <div class="links_footer">
-                <h1 class="sbT">LINKS</h1>
-                <a href="">Inicio</a>
-                <a href="">Explorar</a>
-                <a href="">Quem somos?</a>
-                <a href="">Creditos</a>
-
-            </div>
-
-            <div class="linha_reta"></div>
-
-
-            <div class="redes">
-                <h1 class="sbT">REDES</h1>
-                <img src="../img/index/instagram.png" alt="">
-                <img src="../img/index/facebook.png" alt="">
-            </div>
-
-            <div class="linha_reta"></div>
-            <div class="apoio">
-                <h1 class="sbT">Projeto aplicado</h1>
-                <p>2024/2</p>
-                <img src="../img/index/saoLucas.png" alt="">
+            <nav class="links_footer" aria-label="Institucional">
+                <h2 class="sbT">Institucional</h2>
+                <a href="../index.php#quem_somos">Quem somos?</a>
+                <a href="creditos.html">Créditos</a>
+                <a href="politicas.html">Termos de uso</a>
+            </nav>
+            <nav class="apoio footer_learning" aria-label="Aprenda">
+                <h2 class="sbT">Aprenda</h2>
+                <a href="disciplinas.php">Explorar cursos</a>
+                <a href="register.html">Crie sua conta</a>
+                <a href="login.html">Entrar</a>
+            </nav>
+            <div class="footer_contact">
+                <h2 class="sbT">Fale conosco</h2>
+                <a href="mailto:vc.ensinos2025@gmail.com"><i class="fa-solid fa-envelope" aria-hidden="true"></i>vc.ensinos2025@gmail.com</a>
+                <a href="tel:+555134517557"><i class="fa-solid fa-phone" aria-hidden="true"></i>+55 (51) 3451-7557</a>
+                <div class="footer_support"><span>Projeto aplicado</span><img src="../img/index/saoLucas.png" alt="Colégio São Lucas"></div>
             </div>
         </div>
-
-        <div class="politicas">
-            <div class="container_politicas">
-                <a class="sbT" href="politicas.html">NOSSAS POLITICAS</a>
+        <div class="footer_bottom">
+            <div class="footer_bottom_inner">
+                <p>&copy; 2026 VC Ensinos. Todos os direitos reservados.</p>
+                <div><a href="politicas.html">Privacidade e termos</a><a href="creditos.html">Créditos</a></div>
             </div>
         </div>
     </footer>

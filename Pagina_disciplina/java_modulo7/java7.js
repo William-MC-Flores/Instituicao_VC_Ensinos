@@ -54,13 +54,13 @@ const verCaixas = () => {
             <div class="caixa_cor"></div>
             <button class="caixa_elemento" data-index="${index}">
                 ${e.nome}
-                <img src="../../img/maisIcon.png" alt="">
+                <i class="fa-solid fa-plus" aria-hidden="true"></i>
             </button>
         </div>
         <div class="subitems" id="subitems-${index}">
             ${e.subitens.map((sub, subIndex) => `
                 <div class="caixa_elemento_sub">
-                    <img src="../../img/seta.png" alt="">
+                    <i class="fa-solid fa-chevron-right" aria-hidden="true"></i>
                     <button class="caixa_elemento" data-index="${index}" data-subindex="${subIndex}">
                         ${sub.nome}
                     </button>
@@ -69,7 +69,7 @@ const verCaixas = () => {
         </div>
     `).join('');
 
-    document.querySelectorAll(".caixa_elemento").forEach(button => {
+    document.querySelectorAll("button.caixa_elemento[data-index]").forEach(button => {
         button.addEventListener("click", function () {
             const index = this.getAttribute("data-index");
             const subIndex = this.getAttribute("data-subindex");
@@ -138,5 +138,6 @@ const toggleIcon = document.getElementById("toggleIcon");
 
 toggleButton.addEventListener("click", () => {
     topicosDiv.classList.toggle("minimized");
-    toggleIcon.src = topicosDiv.classList.contains("minimized") ? "../../img/maisIcon.png" : "../../img/menosIcon.png";
+    toggleIcon.classList.toggle("fa-plus", topicosDiv.classList.contains("minimized"));
+    toggleIcon.classList.toggle("fa-minus", !topicosDiv.classList.contains("minimized"));
 });

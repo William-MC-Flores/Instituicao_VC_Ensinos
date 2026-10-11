@@ -144,8 +144,9 @@ span {
     border: none;
 }
 
-.escrita_topicos img {
-    width: 100%;
+.escrita_topicos #toggleIcon {
+    color: white;
+    font-size: 15px;
 }
 
 .topicos .escrita_topicos h1 {
@@ -220,10 +221,12 @@ span {
     background-color: rgb(66, 66, 66);
 }
 
-.caixa_elemento img {
+.caixa_elemento > i {
     width: 20px;
-    height: 20px;
     margin-right: 20px;
+    color: #b5a0d1;
+    font-size: 14px;
+    text-align: center;
 }
 
 /* Caixas menores */
@@ -237,9 +240,11 @@ span {
 
 }
 
-.caixa_elemento_sub img {
+.caixa_elemento_sub > i {
     width: 20px;
-    height: 20px;
+    color: #b5a0d1;
+    font-size: 11px;
+    text-align: center;
 }
 
 .caixa_elemento_sub button {
@@ -401,8 +406,8 @@ span {
     cursor: pointer;
 }
 
-#closeButton img {
-    width: 20px;
+#closeButton > i {
+    font-size: 18px;
 }
 
 

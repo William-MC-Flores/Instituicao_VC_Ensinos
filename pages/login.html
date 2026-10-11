@@ -5,33 +5,68 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>VC Ensinos | Login</title>
   <link rel="stylesheet" href="../css/login_cadastro.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+  <script src="../js/theme.js"></script>
+  <link rel="stylesheet" href="../css/design-system.css?v=20261016">
   <link rel="shortcut icon" href="../img/logoPequenaBranca.png" type="image/x-icon">
 </head>
 <body>
+  <button class="theme-toggle theme-toggle--floating" type="button" data-theme-toggle aria-label="Ativar tema claro" title="Ativar tema claro">
+    <i class="fa-solid fa-sun" data-theme-icon aria-hidden="true"></i>
+    <span data-theme-label>Claro</span>
+  </button>
   <main class="login">
     <div class="container_login">
-      <section class="caixa_conteudo_login" aria-label="VC Ensinos">
-        <div class="caixa">
-          <div class="header_caixa"><a href="../index.php">Voltar para a página <img src="../img/setaBranca.png" alt=""></a></div>
-          <div class="conteudo_caixa"><img src="../img/logogGrandeBranca.png" alt="VC Ensinos"></div>
-        </div>
-      </section>
-      <section class="login_form1">
-        <div class="form_inputs">
-          <div class="escrita_form">
-            <h1>Faça seu login</h1>
-            <p>Não tem uma conta? <a href="register.html">Cadastre-se</a></p>
+      <section class="caixa_conteudo_login auth-visual" aria-label="Aprenda com a VC Ensinos">
+        <a class="auth-visual__brand" href="../index.php" aria-label="VC Ensinos - página inicial">
+          <img src="../img/logogGrandeBranca.png" alt="VC Ensinos">
+          <span>Aprenda. Ensine. Contribua.</span>
+        </a>
+        <div class="auth-visual__body">
+          <div class="auth-visual__intro">
+            <span class="auth-visual__eyebrow">TECNOLOGIA PARA TODOS</span>
+            <h2>Ideias novas.<br>Novas possibilidades.</h2>
+            <p>Aprenda tecnologia no seu ritmo e transforme curiosidade em conhecimento.</p>
           </div>
-          <div class="linha"></div>
+          <div class="auth-showcase" aria-hidden="true">
+            <div class="auth-showcase__top">
+              <span><i class="fa-solid fa-wand-magic-sparkles"></i> TRILHA EM DESTAQUE</span>
+              <span>APRENDA GRÁTIS</span>
+            </div>
+            <div class="auth-showcase__art">
+              <div class="auth-showcase__orbit"><i class="fa-solid fa-brain"></i></div>
+              <div class="auth-showcase__code">
+                <span><i class="fa-solid fa-code"></i> SEU PRÓXIMO PROJETO</span>
+                <strong>&lt; ideias <b>viram</b><br>conhecimento /&gt;</strong>
+                <div><i></i><i></i><i></i></div>
+              </div>
+              <div class="auth-showcase__badge"><i class="fa-solid fa-bolt"></i> Aprenda fazendo</div>
+            </div>
+            <div class="auth-showcase__bottom">
+              <div><span>COMECE POR AQUI</span><strong>Explore cursos de tecnologia</strong></div>
+              <i class="fa-solid fa-arrow-up-right-from-square"></i>
+            </div>
+          </div>
+        </div>
+        <div class="auth-visual__foot"><i class="fa-solid fa-heart"></i> Conhecimento que cresce em comunidade.</div>
+      </section>
+      <section class="login_form1 auth-form">
+        <div class="form_inputs">
+          <div class="escrita_form auth-form__heading">
+            <span class="auth-form__eyebrow">BEM-VINDA(O) DE VOLTA</span>
+            <h1>Continue sua jornada na tecnologia.</h1>
+            <p>Entre na sua conta para continuar aprendendo.</p>
+          </div>
           <form id="login-form">
             <label for="email">E-mail</label>
             <input type="email" id="email" name="email" autocomplete="email" required>
             <label for="password">Senha</label>
             <input type="password" id="password" name="password" autocomplete="current-password" required>
-            <button type="submit">Entrar</button>
+            <button type="submit">Entrar na minha conta</button>
           </form>
           <div id="error-message" class="message error" role="alert" aria-live="polite"></div>
           <div id="success-message" class="message success" role="status" aria-live="polite"></div>
+          <p class="auth-form__switch">Ainda não tem uma conta? <a href="register.html">Cadastre-se</a></p>
         </div>
       </section>
     </div>

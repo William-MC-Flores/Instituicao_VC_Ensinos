@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="800" viewBox="0 0 800 800" fill="none">
+  <g stroke="#a678d2" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="95" cy="112" r="54" stroke-width="1.5" opacity=".17"/>
+    <circle cx="95" cy="112" r="39" stroke-width="1" opacity=".12"/>
+    <path d="M66 115c18-22 40-22 58 0-18 22-40 22-58 0Z" stroke-width="1.4" opacity=".2"/>
+    <path d="M95 94v42M78 115h34" stroke-width="1" opacity=".16"/>
+
+    <path d="M598 85h58v48h-58zM610 101h34M610 114h24" stroke-width="1.5" opacity=".18"/>
+    <path d="m578 154 24-10 24 10v39c-9-6-17-8-24-8s-15 2-24 8v-39Zm48 0 24-10 24 10v39c-9-6-17-8-24-8s-15 2-24 8v-39Z" stroke-width="1.5" opacity=".16"/>
+
+    <circle cx="709" cy="365" r="39" stroke-width="1.5" opacity=".13"/>
+    <circle cx="709" cy="365" r="18" stroke-width="1" opacity=".18"/>
+    <path d="M696 365h26m-13-13v26" stroke-width="1.2" opacity=".18"/>
+
+    <path d="M88 602c22-30 46-30 68 0m-68 0c22 30 46 30 68 0M101 602h42" stroke-width="1.5" opacity=".17"/>
+    <circle cx="118" cy="602" r="55" stroke-width="1" opacity=".11"/>
+    <path d="m606 621 32-18 32 18v38l-32 18-32-18v-38Zm32-18v74m-32-56 64 38m0-38-64 38" stroke-width="1.2" opacity=".15"/>
+
+    <path d="M0 259h140m520 0h140M0 474h80m640 0h80M265 0v90m270 620v90" stroke-width="1" opacity=".1"/>
+    <path d="M243 168c42 28 42 64 0 92m314 285c-42 28-42 64 0 92" stroke-width="1.2" opacity=".13"/>
+  </g>
+  <g fill="#d6c0f0">
+    <circle cx="219" cy="111" r="2" opacity=".3"/>
+    <circle cx="274" cy="132" r="1.5" opacity=".24"/>
+    <circle cx="493" cy="110" r="2" opacity=".22"/>
+    <circle cx="420" cy="213" r="1.5" opacity=".28"/>
+    <circle cx="331" cy="339" r="2" opacity=".22"/>
+    <circle cx="487" cy="390" r="1.5" opacity=".28"/>
+    <circle cx="233" cy="433" r="2" opacity=".24"/>
+    <circle cx="432" cy="553" r="2" opacity=".25"/>
+    <circle cx="313" cy="665" r="1.5" opacity=".3"/>
+    <circle cx="505" cy="704" r="2" opacity=".2"/>
+    <circle cx="194" cy="737" r="1.5" opacity=".24"/>
+    <circle cx="735" cy="525" r="1.5" opacity=".24"/>
+  </g>
+</svg>

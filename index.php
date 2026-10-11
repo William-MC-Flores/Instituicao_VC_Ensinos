@@ -36,7 +36,7 @@ require __DIR__ . '/php/includes/header.php';
           <div class="escrita_exibir">
             <h2 id="catalogo-titulo">Já conhece nosso catálogo?</h2>
             <p>Aqui você procura seu conhecimento.</p>
-            <a href="<?= app_escape(app_url('pages/disciplinas.php')) ?>">Ver mais...</a>
+            <a href="<?= app_escape(app_url('pages/disciplinas.php')) ?>"><i class="fa-solid fa-arrow-right" aria-hidden="true"></i>Ver mais...</a>
             <div class="linha"></div>
           </div>
           <div id="cards_exibir" data-catalog-url="<?= app_escape(app_url('pages/disciplinas.php')) ?>"></div>
@@ -68,19 +68,19 @@ require __DIR__ . '/php/includes/header.php';
             referrerpolicy="no-referrer-when-downgrade"></iframe>
           <div class="texto">
             <div class="icone">
-              <img src="<?= app_escape(app_url('img/index/maps.png')) ?>" alt="">
+              <i class="fa-solid fa-location-dot" aria-hidden="true"></i>
               <h3>Localização</h3>
             </div>
             <p class="resp">R. Vinte e Cinco de Julho, 564 - Vargas, Sapucaia do Sul - RS, 93222-000</p>
             <br>
             <div class="icone">
-              <img src="<?= app_escape(app_url('img/index/email.png')) ?>" alt="">
+              <i class="fa-solid fa-envelope" aria-hidden="true"></i>
               <h3>Email</h3>
             </div>
             <p class="resp">vc.ensinos2025@gmail.com</p>
             <br>
             <div class="icone">
-              <img src="<?= app_escape(app_url('img/index/fone.png')) ?>" alt="">
+              <i class="fa-solid fa-phone" aria-hidden="true"></i>
               <h3>Telefone</h3>
             </div>
             <p class="resp">+55 (51) 3451-7557</p>

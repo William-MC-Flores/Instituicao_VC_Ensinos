@@ -170,7 +170,7 @@ const verDisciplinas = (disciplinas) => {
     if (disciplinas.length === 0) {
         cardContainer.innerHTML = `
         <div class="naoEncontrado">
-            <img src="../img/naoEncontrado.png" alt="">
+            <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
             <p>Nenhuma disciplina encontrada.</p>
         </div>
         `;
@@ -185,7 +185,7 @@ const verDisciplinas = (disciplinas) => {
                     <img src="${e.image}" alt="">
                 </div>
                 <div class="duracao_card">
-                    <img src="../img/duracao.png" alt="">
+                    <i class="fa-regular fa-clock" aria-hidden="true"></i>
                     <h2>${e.duracao}</h2>
                 </div>
                 <div class="escrita_card">
@@ -193,11 +193,11 @@ const verDisciplinas = (disciplinas) => {
                 </div>
                 <div class="item_dificuldade">
                     <div class="dificuldade_card">
-                        <img src="../img/difficult.png" alt="">
+                        <i class="fa-solid fa-chart-simple" aria-hidden="true"></i>
                         <h2>${e.dificuldade}</h2>
                     </div>
                     <div class="dificuldade_card">
-                        <img src="../img/categoria.png" alt="">
+                        <i class="fa-solid fa-layer-group" aria-hidden="true"></i>
                         <h2>${e.categoria}</h2>
                     </div>
                 </div>
@@ -253,6 +253,9 @@ aplicarFiltros();
 filtroCategorias?.addEventListener("click", (e) => {
     if (e.target.tagName === "BUTTON") {
         categoriaSelecionada = e.target.dataset.categoria.toLowerCase();
+        filtroCategorias.querySelectorAll("button").forEach((button) => {
+            button.setAttribute("aria-pressed", String(button === e.target));
+        });
         aplicarFiltros();
     }
 });

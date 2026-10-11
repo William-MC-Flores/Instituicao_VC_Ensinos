@@ -255,9 +255,12 @@ header {
     font-weight: 600;
 }
 
-.naoEncontrado img {
+.naoEncontrado > i {
     width: 70px;
     margin: 10px;
+    color: var(--color-primary);
+    font-size: 42px;
+    text-align: center;
 }
 
 
@@ -355,9 +358,12 @@ header {
     color: rgb(109, 109, 109);
 }
 
-.duracao_card img {
+.duracao_card > i {
     width: 11px;
     border-radius: 360px;
+    color: var(--color-primary);
+    font-size: 13px;
+    text-align: center;
 }
 
 .item_dificuldade {
@@ -384,8 +390,11 @@ header {
     color: rgb(158, 158, 158);
 }
 
-.dificuldade_card img {
+.dificuldade_card > i {
     width: 13px;
+    color: var(--color-primary);
+    font-size: 13px;
+    text-align: center;
 }
 
 .foto_card {
