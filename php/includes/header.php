@@ -15,7 +15,7 @@ $pageTitle = $pageTitle ?? 'Início';
   <?php endforeach; ?>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
   <script src="<?= app_escape(app_url('js/theme.js')) ?>"></script>
-  <link rel="stylesheet" href="<?= app_escape(app_url('css/design-system.css?v=20261018')) ?>">
+  <link rel="stylesheet" href="<?= app_escape(app_url('css/design-system.css?v=20261012-banner-fix')) ?>">
   <title>VCensinos | <?= app_escape($pageTitle) ?></title>
 </head>
 <body>
@@ -24,6 +24,7 @@ $pageTitle = $pageTitle ?? 'Início';
       <div class="links_disciplinas">
         <a href="<?= app_escape(app_url('index.php')) ?>"><img src="<?= app_escape(app_url('img/logogGrandeBranca.png')) ?>" alt="VC Ensinos"></a>
         <a href="<?= app_escape(app_url('pages/disciplinas.php')) ?>"><i class="fa-solid fa-compass" aria-hidden="true"></i>Explorar</a>
+        <a href="<?= app_escape(app_url('index.php#planos')) ?>"><i class="fa-solid fa-layer-group" aria-hidden="true"></i>Planos</a>
         <a href="<?= app_escape(app_url('index.php#quem_somos')) ?>"><i class="fa-solid fa-circle-info" aria-hidden="true"></i>Quem Somos?</a>
         <a href="<?= app_escape(app_url('pages/creditos.php')) ?>"><i class="fa-solid fa-award" aria-hidden="true"></i>Créditos</a>
       </div>

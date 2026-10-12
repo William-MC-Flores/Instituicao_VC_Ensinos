@@ -23,14 +23,19 @@ if ($method === 'GET' && $action === 'csrf') {
 if ($method === 'GET' && $action === 'me') {
     if (empty($_SESSION['user_id'])) app_json_response(200, ['ok' => true, 'authenticated' => false]);
     try {
-        $statement = app_db()->prepare('SELECT name, email FROM users WHERE id = ? LIMIT 1');
+        $statement = app_db()->prepare('SELECT name, email, role, plan FROM users WHERE id = ? LIMIT 1');
         $statement->execute([(int) $_SESSION['user_id']]);
         $user = $statement->fetch();
         if (!$user) {
             unset($_SESSION['user_id']);
             app_json_response(200, ['ok' => true, 'authenticated' => false]);
         }
-        app_json_response(200, ['ok' => true, 'authenticated' => true, 'user' => ['name' => $user['name'], 'email' => $user['email']]]);
+        app_json_response(200, ['ok' => true, 'authenticated' => true, 'user' => [
+            'name' => $user['name'],
+            'email' => $user['email'],
+            'role' => $user['role'],
+            'plan' => $user['plan'],
+        ]]);
     } catch (Throwable $error) {
         error_log('Falha ao consultar sessão: ' . $error->getMessage());
         app_json_response(500, ['ok' => false, 'message' => 'Não foi possível consultar sua sessão.']);
@@ -71,7 +76,7 @@ try {
 
         case 'login': {
             app_rate_limit('login', auth_client_ip() . '|' . $email, 10);
-            $statement = $pdo->prepare('SELECT id, name, email, password_hash FROM users WHERE email = ? LIMIT 1');
+            $statement = $pdo->prepare('SELECT id, name, email, password_hash, role, plan FROM users WHERE email = ? LIMIT 1');
             $statement->execute([$email]);
             $user = $statement->fetch();
             if (!$user || !password_verify((string) ($input['password'] ?? ''), $user['password_hash'])) {
@@ -80,7 +85,12 @@ try {
             session_regenerate_id(true);
             $_SESSION['user_id'] = (int) $user['id'];
             unset($_SESSION['csrf_token']);
-            app_json_response(200, ['ok' => true, 'message' => 'Login realizado.', 'user' => ['name' => $user['name'], 'email' => $user['email']]]);
+            app_json_response(200, ['ok' => true, 'message' => 'Login realizado.', 'user' => [
+                'name' => $user['name'],
+                'email' => $user['email'],
+                'role' => $user['role'],
+                'plan' => $user['plan'],
+            ]]);
         }
 
         case 'logout':
@@ -90,14 +100,19 @@ try {
 
         case 'me': {
             if (empty($_SESSION['user_id'])) app_json_response(200, ['ok' => true, 'authenticated' => false]);
-            $statement = $pdo->prepare('SELECT id, name, email FROM users WHERE id = ? LIMIT 1');
+            $statement = $pdo->prepare('SELECT id, name, email, role, plan FROM users WHERE id = ? LIMIT 1');
             $statement->execute([(int) $_SESSION['user_id']]);
             $user = $statement->fetch();
             if (!$user) {
                 unset($_SESSION['user_id']);
                 app_json_response(200, ['ok' => true, 'authenticated' => false]);
             }
-            app_json_response(200, ['ok' => true, 'authenticated' => true, 'user' => ['name' => $user['name'], 'email' => $user['email']]]);
+            app_json_response(200, ['ok' => true, 'authenticated' => true, 'user' => [
+                'name' => $user['name'],
+                'email' => $user['email'],
+                'role' => $user['role'],
+                'plan' => $user['plan'],
+            ]]);
         }
 
         default:

@@ -4762,9 +4762,9 @@ html[data-theme="light"] .course-icon {
 }
 
 .container_foto {
-  width: min(100%, 520px);
+  width: min(100%, 680px);
   height: auto;
-  aspect-ratio: 11 / 5;
+  aspect-ratio: 1671 / 941;
   background: transparent;
 }
 
@@ -4924,9 +4924,9 @@ body:has(.all) > header {
   }
 
   .container_foto {
-    width: min(100%, 520px);
+    width: min(100%, 680px);
     height: auto;
-    aspect-ratio: 11 / 5;
+    aspect-ratio: 1671 / 941;
   }
 
   .caixa_dilema > i {
@@ -6106,5 +6106,193 @@ html[data-theme="light"] .share-copy-button {
 
   .course-pdf-preview iframe {
     min-height: 320px;
+  }
+}
+
+.membership-plans {
+  position: relative;
+  display: grid;
+  grid-column: 1 / -1;
+  justify-self: center;
+  gap: clamp(24px, 4vw, 42px);
+  width: min(1160px, calc(100% - 40px));
+  margin: clamp(64px, 9vw, 112px) auto;
+}
+
+.membership-plans__heading {
+  max-width: 650px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.membership-plans__heading > span {
+  color: var(--color-primary, #c5a0ed);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+}
+
+.membership-plans__heading h2 {
+  margin: 10px 0;
+  color: var(--color-ink, #f7f2fb);
+  font-size: clamp(26px, 4vw, 40px);
+  line-height: 1.14;
+}
+
+.membership-plans__heading p {
+  color: var(--color-muted, #b9aec5);
+  font-size: 15px;
+}
+
+.membership-plans__grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  align-items: stretch;
+  gap: 16px;
+}
+
+.membership-plan {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  gap: 13px;
+  padding: clamp(20px, 2.8vw, 28px);
+  border: 1px solid var(--color-border, #392c47);
+  border-radius: 20px;
+  background: var(--color-surface, #17121d);
+  box-shadow: 0 18px 50px rgba(7, 4, 12, 0.1);
+  transition: transform 200ms ease, border-color 200ms ease, box-shadow 200ms ease;
+}
+
+.membership-plan:hover {
+  transform: translateY(-4px);
+  border-color: rgba(186, 141, 222, 0.52);
+  box-shadow: 0 22px 54px rgba(7, 4, 12, 0.19);
+}
+
+.membership-plan--featured {
+  border-color: rgba(186, 141, 222, 0.6);
+  background:
+    radial-gradient(ellipse at 100% 0%, rgba(166, 120, 210, 0.15), transparent 48%),
+    var(--color-surface, #17121d);
+}
+
+.membership-plan--soon {
+  background: var(--color-surface, #17121d);
+}
+
+.membership-plan__eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  color: var(--color-primary, #c5a0ed);
+  font-size: 11px;
+  font-weight: 850;
+  letter-spacing: 0.14em;
+}
+
+.membership-plan__eyebrow i {
+  font-size: 16px;
+}
+
+.membership-plan h3 {
+  color: var(--color-ink, #f7f2fb);
+  font-size: 20px;
+}
+
+.membership-plan__price {
+  color: var(--color-ink, #f7f2fb) !important;
+  font-size: 22px !important;
+  font-weight: 800;
+}
+
+.membership-plan > p {
+  margin: 0;
+  color: var(--color-muted, #b9aec5);
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.membership-plan ul {
+  display: grid;
+  gap: 10px;
+  margin: 4px 0 10px;
+  padding: 0;
+  list-style: none;
+}
+
+.membership-plan li {
+  display: flex;
+  align-items: start;
+  gap: 9px;
+  color: var(--color-muted, #b9aec5);
+  font-size: 13px;
+  line-height: 1.45;
+}
+
+.membership-plan li i {
+  margin-top: 3px;
+  color: #83d9a7;
+}
+
+.membership-plan > a,
+.membership-plan__notice {
+  display: flex;
+  min-height: 44px;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-top: auto;
+  padding: 9px 12px;
+  border: 1px solid rgba(186, 141, 222, 0.45);
+  border-radius: 11px;
+  color: var(--color-ink, #f7f2fb);
+  font-size: 13px;
+  font-weight: 750;
+  text-align: center;
+  text-decoration: none;
+}
+
+.membership-plan > a {
+  background: linear-gradient(120deg, #a678d2, #8066f4);
+  color: #fff;
+  transition: filter 160ms ease, transform 160ms ease;
+}
+
+.membership-plan > a:hover {
+  transform: translateY(-1px);
+  filter: brightness(1.08);
+}
+
+.membership-plan__notice {
+  border-color: var(--color-border, #392c47);
+  color: var(--color-muted, #b9aec5);
+}
+
+html[data-theme="light"] .membership-plan,
+html[data-theme="light"] .membership-plan--featured {
+  background-color: #fff;
+}
+
+html[data-theme="light"] .membership-plan--featured {
+  background-image: radial-gradient(ellipse at 100% 0%, rgba(140, 91, 181, 0.1), transparent 48%);
+}
+
+@media (max-width: 820px) {
+  .membership-plans__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .membership-plan {
+    max-width: 560px;
+    width: 100%;
+    box-sizing: border-box;
+    margin: 0 auto;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .membership-plan {
+    transition-duration: 0.01ms !important;
   }
 }

@@ -9,7 +9,7 @@ require __DIR__ . '/php/includes/header.php';
     <div class="container_index">
       <section class="foto_index" aria-label="Apresentação">
         <div class="container_foto">
-          <img src="<?= app_escape(app_url('img/index/capa.png')) ?>" alt="Banner da VC Ensinos com estudantes aprendendo tecnologia">
+          <img src="<?= app_escape(app_url('img/index/Banner_VC.png')) ?>" alt="Banner da VC Ensinos com estudantes aprendendo tecnologia">
         </div>
       </section>
 
@@ -28,6 +28,53 @@ require __DIR__ . '/php/includes/header.php';
             <i class="fa-solid fa-people-group" aria-hidden="true"></i>
             <h2>Contribui</h2>
           </div>
+        </div>
+      </section>
+
+      <section class="membership-plans" id="planos" aria-labelledby="plans-title">
+        <div class="membership-plans__heading">
+          <span>APRENDA NO SEU RITMO</span>
+          <h2 id="plans-title">Um caminho para cada etapa</h2>
+          <p>Comece gratuitamente. Novas experiências da comunidade serão liberadas em breve.</p>
+        </div>
+        <div class="membership-plans__grid">
+          <article class="membership-plan membership-plan--featured">
+            <div class="membership-plan__eyebrow"><i class="fa-solid fa-seedling" aria-hidden="true"></i> FREE</div>
+            <h3>Seu começo</h3>
+            <p class="membership-plan__price">Grátis</p>
+            <p>Explore o catálogo, visualize as disciplinas e personalize o essencial do seu perfil.</p>
+            <ul>
+              <li><i class="fa-solid fa-check" aria-hidden="true"></i>Catálogo de disciplinas</li>
+              <li><i class="fa-solid fa-check" aria-hidden="true"></i>Perfil básico com nome e foto</li>
+            </ul>
+            <a href="<?= app_escape(app_url('pages/register.html')) ?>">Criar conta gratuita <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
+          </article>
+          <article class="membership-plan membership-plan--soon">
+            <div class="membership-plan__eyebrow"><i class="fa-solid fa-bolt" aria-hidden="true"></i> STANDARD</div>
+            <h3>Aprenda acompanhado</h3>
+            <p class="membership-plan__price">Indisponível</p>
+            <p>Mais acompanhamento para avançar com confiança.</p>
+            <ul>
+              <li><i class="fa-solid fa-check" aria-hidden="true"></i>Todos os benefícios Free</li>
+              <li><i class="fa-solid fa-check" aria-hidden="true"></i>Personalização avançada do perfil</li>
+              <li><i class="fa-solid fa-check" aria-hidden="true"></i>Inscrição em turmas disponíveis</li>
+              <li><i class="fa-solid fa-check" aria-hidden="true"></i>Dúvidas com colaboradores</li>
+              <li><i class="fa-solid fa-check" aria-hidden="true"></i>Participação em aulas ao vivo</li>
+            </ul>
+            <span class="membership-plan__notice">Plano indisponível por enquanto</span>
+          </article>
+          <article class="membership-plan membership-plan--soon">
+            <div class="membership-plan__eyebrow"><i class="fa-solid fa-crown" aria-hidden="true"></i> PRO</div>
+            <h3>Uma experiência exclusiva</h3>
+            <p class="membership-plan__price">Indisponível</p>
+            <p>Conteúdos especiais e uma conexão mais próxima com a equipe.</p>
+            <ul>
+              <li><i class="fa-solid fa-check" aria-hidden="true"></i>Todos os benefícios Standard</li>
+              <li><i class="fa-solid fa-check" aria-hidden="true"></i>Acesso à equipe e aos fundadores</li>
+              <li><i class="fa-solid fa-check" aria-hidden="true"></i>Exercícios e aulas extras</li>
+            </ul>
+            <span class="membership-plan__notice">Plano indisponível por enquanto</span>
+          </article>
         </div>
       </section>
 

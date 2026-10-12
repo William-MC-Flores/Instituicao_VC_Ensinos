@@ -1,6 +1,6 @@
 # VC Ensinos — InfinityFree
 
-Site educacional com páginas institucionais, catálogo, cursos e autenticação simples por PHP/MySQL. A implantação suportada é uma conta InfinityFree usando o subdomínio gratuito fornecido pela hospedagem; não configure domínio próprio.
+Site educacional com páginas institucionais, catálogo, cursos, perfis de aluno/colaborador/administrador e autenticação por PHP/MySQL. A implantação suportada é uma conta InfinityFree usando o subdomínio gratuito fornecido pela hospedagem; não configure domínio próprio.
 
 ## Implantação
 
@@ -13,6 +13,10 @@ Siga [docs/CONFIGURAR-AUTENTICACAO-PHP.md](docs/CONFIGURAR-AUTENTICACAO-PHP.md).
 
 O site requer PHP 8.1 ou superior com `PDO MySQL`, MySQL/MariaDB e Apache. Não requer Composer, npm, envio de e-mail ou domínio próprio.
 
-Cadastro, login, sessão e painel são implementados em `php/api/auth.php` e `pages/painel.php`. Não há confirmação de e-mail nem recuperação de senha. Senhas são armazenadas com `password_hash`; formulários usam CSRF e a API limita tentativas.
+Cadastro, login e sessão são implementados em `php/api/auth.php`. O painel de aprendizagem e as permissões de turma/equipe usam `php/api/workspace.php`; perfis novos recebem automaticamente o papel `student` e o plano `free`. Papéis de equipe não podem ser escolhidos no cadastro: um administrador precisa atribuí-los. Não há confirmação de e-mail nem recuperação de senha. Senhas são armazenadas com `password_hash`; formulários usam CSRF e a API limita tentativas.
+
+O plano Free permite visualizar as páginas das disciplinas; a inscrição em turmas exige Standard ou Pro, que estão indisponíveis, e não existe cobrança integrada. No Free, o perfil permite alterar nome e foto; a personalização avançada é reservada a Standard/Pro e à equipe. Perfis começam privados, e cada pessoa decide se os torna públicos. Turmas são abertas por administradores, colaboradores precisam receber atribuição por disciplina/turma, e os materiais enviados ficam pendentes até aprovação administrativa. Promova inicialmente uma conta confiável a `admin` diretamente no banco; depois, use o painel para administrar perfis e atribuições.
+
+Para atualizar um banco que já possui a tabela `users`, faça backup e execute uma vez `database/migrations/20261012_profiles_and_learning.sql` e depois `database/migrations/20261012_profile_customization.sql` pelo phpMyAdmin antes de publicar o código. Novas instalações devem importar apenas `database/schema.sql`.
 
 O código-fonte também inclui arquivos HTML estáticos para páginas e cursos. O Apache prioriza `index.php` para que a página inicial use os caminhos e recursos da aplicação.
