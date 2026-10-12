@@ -39,6 +39,7 @@ require dirname(__DIR__) . '/php/includes/header.php';
       <li>Oferecer e gerenciar nossos cursos.</li>
       <li>Melhorar a experiência do usuário.</li>
       <li>Enviar comunicações sobre cursos, ofertas e atualizações.</li>
+      <li>Confirmar o endereço de e-mail e permitir a recuperação segura da senha por links temporários.</li>
     </ul>
     <p><strong>Compartilhamento de informações</strong><br>Não compartilhamos informações com terceiros, exceto quando necessário para processar pagamentos ou quando exigido por lei.</p>
     <p><strong>Segurança de dados</strong><br>Implementamos medidas de segurança para proteger suas informações contra acessos não autorizados.</p>

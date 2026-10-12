@@ -8,7 +8,7 @@
   <link rel="stylesheet" href="../css/login_cadastro.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
   <script src="../js/theme.js"></script>
-  <link rel="stylesheet" href="../css/design-system.css?v=20261016">
+  <link rel="stylesheet" href="../css/design-system.css?v=20261012-email-verification">
 </head>
 <body>
   <button class="theme-toggle theme-toggle--floating" type="button" data-theme-toggle aria-label="Ativar tema claro" title="Ativar tema claro">
@@ -70,11 +70,12 @@
           </form>
           <div id="error-message" class="message error" role="alert" aria-live="polite"></div>
           <div id="success-message" class="message success" role="status" aria-live="polite"></div>
+          <button class="auth-secondary-action" id="resend-verification" type="button" hidden>Reenviar e-mail de verificação</button>
           <p class="auth-form__switch">Já tem uma conta? <a href="login.html">Entrar</a></p>
         </div>
       </section>
     </div>
   </main>
-  <script type="module" src="../js/cadastro/register.js"></script>
+  <script type="module" src="../js/cadastro/register.js?v=20261012-email-verification"></script>
 </body>
 </html>

@@ -103,7 +103,7 @@ const renderMaterials = (submissions, target) => {
     ? emptyState("Os materiais extras aprovados pela equipe aparecerão aqui.")
     : submissions.map((submission) => `
       <article class="workspace-item">
-        <div><span class="workspace-item__eyebrow">${escapeHtml(submission.discipline_name)} · ${escapeHtml(submission.content_type)}</span>
+        <div><span class="workspace-item__eyebrow">${escapeHtml(submission.area_name)} · ${escapeHtml(submission.discipline_name)} · ${escapeHtml(submission.content_type)}</span>
           <h3>${escapeHtml(submission.title)}</h3>
           <p>${escapeHtml(submission.description)}</p></div>
         ${submission.resource_url
@@ -124,13 +124,13 @@ const renderCollaborator = (data) => {
   };
   workspace.querySelector("[data-collaborator-assignments]").innerHTML = data.disciplines.length
     ? data.disciplines.map((discipline) => `
-      <article class="workspace-item"><div><span class="workspace-item__eyebrow">DISCIPLINA</span><h3>${escapeHtml(discipline.name)}</h3>
+      <article class="workspace-item"><div><span class="workspace-item__eyebrow">${escapeHtml(discipline.area_name)} · MÓDULO</span><h3>${escapeHtml(discipline.name)}</h3>
       <p>${data.classes.filter((courseClass) => courseClass.discipline_slug === discipline.slug).length} turma(s) atribuída(s)</p></div></article>
     `).join("")
     : emptyState("Seu acesso às disciplinas ainda precisa ser configurado por um administrador.");
   workspace.querySelector("[data-collaborator-submissions]").innerHTML = data.submissions.length
     ? data.submissions.map((submission) => `
-      <article class="workspace-item"><div><span class="workspace-item__eyebrow">${escapeHtml(submission.discipline_name)} · ${escapeHtml(submission.content_type)}</span>
+      <article class="workspace-item"><div><span class="workspace-item__eyebrow">${escapeHtml(submission.area_name)} · ${escapeHtml(submission.discipline_name)} · ${escapeHtml(submission.content_type)}</span>
       <h3>${escapeHtml(submission.title)}</h3><p>${escapeHtml(submission.description)}</p></div>
       <span class="state-chip state-chip--${escapeHtml(submission.status)}">${escapeHtml({ pending: "Em análise", approved: "Aprovado", rejected: "Recusado" }[submission.status] || submission.status)}</span></article>
     `).join("")
@@ -167,21 +167,38 @@ const renderUsers = (users) => {
 const renderAdmin = (data) => {
   const collaborators = data.users.filter((account) => account.role === "collaborator");
   const disciplines = data.disciplines;
+  const subjectAreas = data.subjectAreas || [];
   fillSelect(workspace.querySelector("[data-collaborator-users]"), collaborators,
     (item) => item.id, (item) => `${item.name} · ${item.email}`, "Selecione um colaborador");
-  fillSelect(workspace.querySelector("[data-all-disciplines]"), disciplines,
+  fillSelect(workspace.querySelector("[data-all-disciplines]"), subjectAreas,
     (item) => item.slug, (item) => item.name, "Selecione uma disciplina");
   fillSelect(workspace.querySelector("[data-class-disciplines]"), disciplines,
-    (item) => item.slug, (item) => item.name, "Selecione uma disciplina");
+    (item) => item.slug, (item) => `${item.area_name} · ${item.name}`, "Selecione um módulo");
 
   renderUsers(data.users);
+  const subjectAreaContainer = workspace.querySelector("[data-subject-area-management]");
+  subjectAreaContainer.innerHTML = subjectAreas.length
+    ? subjectAreas.map((area) => `
+      <article class="workspace-item workspace-item--stack">
+        <form class="subject-area-form" data-subject-area-form data-area-id="${Number(area.id)}">
+          <label>Disciplina<input name="name" maxlength="160" required value="${escapeHtml(area.name)}"></label>
+          <label>Descrição<textarea name="description" rows="2" maxlength="1000">${escapeHtml(area.description || "")}</textarea></label>
+          <div class="workspace-item__row">
+            <span class="workspace-item__meta">${Number(area.topic_count)} módulo(s) associado(s)</span>
+            <button class="workspace-action" type="submit">Salvar alterações</button>
+          </div>
+        </form>
+      </article>
+    `).join("")
+    : emptyState("Nenhuma disciplina cadastrada.");
+
   const assignmentContainer = workspace.querySelector("[data-discipline-assignments]");
   assignmentContainer.innerHTML = data.disciplineAssignments.length
     ? data.disciplineAssignments.map((assignment) => `
       <article class="workspace-item"><div><span class="workspace-item__eyebrow">${escapeHtml(assignment.collaborator_name)}</span>
-      <h3>${escapeHtml(assignment.discipline_name)}</h3></div>
+      <h3>${escapeHtml(assignment.area_name)}</h3><p>${Number(assignment.module_count)} módulo(s) atribuídos</p></div>
       <button type="button" class="workspace-action workspace-action--quiet" data-action="remove-discipline"
-        data-user-id="${Number(assignment.collaborator_id)}" data-discipline="${escapeHtml(assignment.discipline_slug)}">Remover</button></article>
+        data-user-id="${Number(assignment.collaborator_id)}" data-area-slug="${escapeHtml(assignment.subject_area_slug)}">Remover</button></article>
     `).join("")
     : emptyState("Nenhuma disciplina atribuída à equipe ainda.");
 
@@ -189,7 +206,8 @@ const renderAdmin = (data) => {
   classContainer.innerHTML = data.classes.length
     ? data.classes.map((courseClass) => `
       <article class="workspace-item workspace-item--stack">
-        <div class="workspace-item__row"><div><span class="workspace-item__eyebrow">${escapeHtml(courseClass.discipline_name)}</span>
+        <div class="workspace-item__row">
+          <div><span class="workspace-item__eyebrow">${escapeHtml(courseClass.area_name)} · ${escapeHtml(courseClass.discipline_name)}</span>
           <h3>${escapeHtml(courseClass.name)}</h3><p>${escapeHtml(courseClass.description || "Sem descrição.")}</p>
           <span class="workspace-item__meta">${Number(courseClass.student_count)} participantes · ${escapeHtml(courseClass.collaborator_names || "Sem colaborador atribuído")}</span></div>
           <button type="button" class="workspace-action workspace-action--quiet" data-action="toggle-class"
@@ -200,7 +218,7 @@ const renderAdmin = (data) => {
             <option value="">Atribuir colaborador autorizado para a disciplina</option>
             ${collaborators.filter((collaborator) => data.disciplineAssignments.some((assignment) =>
               Number(assignment.collaborator_id) === Number(collaborator.id)
-              && assignment.discipline_slug === courseClass.discipline_slug))
+              && assignment.subject_area_slug === courseClass.area_slug))
               .map((collaborator) => `<option value="${Number(collaborator.id)}">${escapeHtml(collaborator.name)}</option>`).join("")}
           </select></label><button type="submit">Atribuir à turma</button>
         </form>
@@ -212,7 +230,7 @@ const renderAdmin = (data) => {
   reviewContainer.innerHTML = data.submissions.length
     ? data.submissions.map((submission) => `
       <article class="workspace-item workspace-item--stack">
-        <div><span class="workspace-item__eyebrow">${escapeHtml(submission.discipline_name)} · ${escapeHtml(submission.content_type)} · ${escapeHtml(submission.author_name)}</span>
+        <div><span class="workspace-item__eyebrow">${escapeHtml(submission.area_name)} · ${escapeHtml(submission.discipline_name)} · ${escapeHtml(submission.content_type)} · ${escapeHtml(submission.author_name)}</span>
           <h3>${escapeHtml(submission.title)}</h3><p>${escapeHtml(submission.description)}</p>
           ${submission.resource_url ? `<a href="${escapeHtml(submission.resource_url)}" target="_blank" rel="noopener noreferrer">Conferir material enviado</a>` : ""}</div>
         <div class="workspace-item__actions"><button type="button" class="workspace-action" data-action="review-content" data-id="${Number(submission.id)}" data-status="approved">Aprovar</button>
@@ -262,7 +280,7 @@ workspace.addEventListener("click", async (event) => {
     } else if (action === "remove-discipline") {
       result = await workspacePost("admin_assign_discipline", {
         user_id: button.dataset.userId,
-        discipline_slug: button.dataset.discipline,
+        subject_area_slug: button.dataset.areaSlug,
         assigned: false,
       });
     } else if (action === "toggle-class") {
@@ -301,6 +319,10 @@ workspace.addEventListener("submit", async (event) => {
     if (form.matches("[data-user-form]")) {
       values.plan = values.plan || "free";
       result = await workspacePost("admin_update_user", { ...values, user_id: form.dataset.userId });
+    } else if (form.matches("[data-subject-area-create-form]")) {
+      result = await workspacePost("admin_create_subject_area", values);
+    } else if (form.matches("[data-subject-area-form]")) {
+      result = await workspacePost("admin_update_subject_area", { ...values, area_id: form.dataset.areaId });
     } else if (form.matches("[data-discipline-assignment-form]")) {
       result = await workspacePost("admin_assign_discipline", values);
     } else if (form.matches("[data-class-form]")) {

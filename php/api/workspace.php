@@ -14,13 +14,13 @@ function workspace_current_user(PDO $pdo): array
     }
 
     $statement = $pdo->prepare(
-        'SELECT id, name, email, role, plan, avatar_path, cover_path, bio, pronouns, '
+        'SELECT id, name, email, role, plan, email_verified_at, avatar_path, cover_path, bio, pronouns, '
         . 'website_url, instagram_url, linkedin_url, profile_visibility FROM users WHERE id = ? LIMIT 1'
     );
     $statement->execute([(int) $_SESSION['user_id']]);
     $user = $statement->fetch();
-    if (!$user) {
-        unset($_SESSION['user_id']);
+    if (!$user || $user['email_verified_at'] === null) {
+        unset($_SESSION['user_id'], $_SESSION['csrf_token']);
         app_json_response(401, ['ok' => false, 'message' => 'Sua sessão expirou. Entre novamente.']);
     }
 
@@ -41,6 +41,18 @@ function workspace_text_length(string $value): int
     }
     $length = preg_match_all('/./us', $value, $matches);
     return $length === false ? PHP_INT_MAX : $length;
+}
+
+function workspace_subject_slug(string $name): string
+{
+    $asciiName = function_exists('iconv')
+        ? iconv('UTF-8', 'ASCII//TRANSLIT//IGNORE', $name)
+        : $name;
+    $slug = strtolower(trim((string) preg_replace('/[^a-zA-Z0-9]+/', '-', (string) $asciiName), '-'));
+    if ($slug === '') {
+        $slug = 'disciplina-' . substr(hash('sha256', $name), 0, 12);
+    }
+    return substr($slug, 0, 80);
 }
 
 function workspace_can_customize_profile(array $user): bool
@@ -141,6 +153,7 @@ function workspace_read_data(PDO $pdo, array $user): array
             'profile_visibility' => $user['profile_visibility'],
         ],
         'disciplines' => [],
+        'subjectAreas' => [],
         'classes' => [],
         'submissions' => [],
         'users' => [],
@@ -150,10 +163,12 @@ function workspace_read_data(PDO $pdo, array $user): array
         $canJoinClasses = in_array($user['plan'], ['standard', 'pro'], true);
         $statement = $pdo->prepare(
             "SELECT c.id, c.name, c.description, c.status, d.slug AS discipline_slug, d.name AS discipline_name,
+                COALESCE(a.name, 'Sem disciplina') AS area_name,
                 (e.student_id IS NOT NULL) AS enrolled,
                 (SELECT COUNT(*) FROM class_enrollments ce WHERE ce.class_id = c.id) AS student_count
              FROM classes c
              JOIN disciplines d ON d.slug = c.discipline_slug
+             LEFT JOIN subject_areas a ON a.id = d.area_id
              LEFT JOIN class_enrollments e ON e.class_id = c.id AND e.student_id = ? AND ? = 1
              WHERE c.status = 'open' OR e.student_id IS NOT NULL
              ORDER BY d.name, c.name"
@@ -162,8 +177,9 @@ function workspace_read_data(PDO $pdo, array $user): array
         $data['classes'] = $statement->fetchAll();
         $statement = $pdo->prepare(
             "SELECT cs.id, cs.title, cs.content_type, cs.description, cs.resource_url, "
-            . 'cs.discipline_slug, d.name AS discipline_name, cs.created_at '
+            . 'cs.discipline_slug, d.name AS discipline_name, COALESCE(a.name, \'Sem disciplina\') AS area_name, cs.created_at '
             . 'FROM content_submissions cs JOIN disciplines d ON d.slug = cs.discipline_slug '
+            . 'LEFT JOIN subject_areas a ON a.id = d.area_id '
             . "LEFT JOIN class_enrollments e ON e.class_id = cs.class_id AND e.student_id = ? AND ? = 1 "
             . "WHERE cs.status = 'approved' AND (cs.class_id IS NULL OR e.student_id IS NOT NULL) "
             . 'ORDER BY cs.created_at DESC LIMIT 50'
@@ -174,17 +190,20 @@ function workspace_read_data(PDO $pdo, array $user): array
 
     if ($user['role'] === 'collaborator') {
         $statement = $pdo->prepare(
-            'SELECT d.slug, d.name FROM collaborator_disciplines cd '
+            'SELECT d.slug, d.name, COALESCE(a.name, \'Sem disciplina\') AS area_name FROM collaborator_disciplines cd '
             . 'JOIN disciplines d ON d.slug = cd.discipline_slug '
+            . 'LEFT JOIN subject_areas a ON a.id = d.area_id '
             . 'WHERE cd.collaborator_id = ? ORDER BY d.name'
         );
         $statement->execute([(int) $user['id']]);
         $data['disciplines'] = $statement->fetchAll();
 
         $statement = $pdo->prepare(
-            'SELECT c.id, c.name, c.discipline_slug, d.name AS discipline_name, c.status '
+            'SELECT c.id, c.name, c.discipline_slug, d.name AS discipline_name, '
+            . 'COALESCE(a.name, \'Sem disciplina\') AS area_name, c.status '
             . 'FROM class_collaborators cc JOIN classes c ON c.id = cc.class_id '
             . 'JOIN disciplines d ON d.slug = c.discipline_slug '
+            . 'LEFT JOIN subject_areas a ON a.id = d.area_id '
             . 'WHERE cc.collaborator_id = ? ORDER BY d.name, c.name'
         );
         $statement->execute([(int) $user['id']]);
@@ -192,8 +211,9 @@ function workspace_read_data(PDO $pdo, array $user): array
 
         $statement = $pdo->prepare(
             'SELECT cs.id, cs.title, cs.content_type, cs.description, cs.resource_url, cs.status, '
-            . 'cs.discipline_slug, d.name AS discipline_name, cs.created_at '
+            . 'cs.discipline_slug, d.name AS discipline_name, COALESCE(a.name, \'Sem disciplina\') AS area_name, cs.created_at '
             . 'FROM content_submissions cs JOIN disciplines d ON d.slug = cs.discipline_slug '
+            . 'LEFT JOIN subject_areas a ON a.id = d.area_id '
             . 'WHERE cs.submitted_by = ? ORDER BY cs.created_at DESC LIMIT 50'
         );
         $statement->execute([(int) $user['id']]);
@@ -201,27 +221,44 @@ function workspace_read_data(PDO $pdo, array $user): array
     }
 
     if ($user['role'] === 'admin') {
-        $data['disciplines'] = $pdo->query('SELECT slug, name FROM disciplines ORDER BY name')->fetchAll();
+        $data['disciplines'] = $pdo->query(
+            'SELECT d.slug, d.name, COALESCE(a.name, \'Sem disciplina\') AS area_name '
+            . 'FROM disciplines d LEFT JOIN subject_areas a ON a.id = d.area_id '
+            . 'ORDER BY a.name, d.name'
+        )->fetchAll();
+        $data['subjectAreas'] = $pdo->query(
+            'SELECT a.id, a.slug, a.name, a.description, COUNT(d.slug) AS topic_count '
+            . 'FROM subject_areas a LEFT JOIN disciplines d ON d.area_id = a.id '
+            . 'GROUP BY a.id, a.slug, a.name, a.description ORDER BY a.name'
+        )->fetchAll();
         $data['classes'] = $pdo->query(
-            'SELECT c.id, c.name, c.discipline_slug, d.name AS discipline_name, c.description, c.status, '
+            'SELECT c.id, c.name, c.discipline_slug, d.name AS discipline_name, '
+            . 'a.slug AS area_slug, c.description, c.status, '
+            . 'COALESCE(a.name, \'Sem disciplina\') AS area_name, '
             . '(SELECT COUNT(*) FROM class_enrollments e WHERE e.class_id = c.id) AS student_count, '
             . '(SELECT GROUP_CONCAT(u.name ORDER BY u.name SEPARATOR ", ") FROM class_collaborators cc '
             . 'JOIN users u ON u.id = cc.collaborator_id WHERE cc.class_id = c.id) AS collaborator_names '
-            . 'FROM classes c JOIN disciplines d ON d.slug = c.discipline_slug ORDER BY d.name, c.name'
+            . 'FROM classes c JOIN disciplines d ON d.slug = c.discipline_slug '
+            . 'LEFT JOIN subject_areas a ON a.id = d.area_id ORDER BY a.name, d.name, c.name'
         )->fetchAll();
         $data['users'] = $pdo->query(
             "SELECT id, name, email, role, plan FROM users ORDER BY FIELD(role, 'admin', 'collaborator', 'student'), name"
         )->fetchAll();
         $data['disciplineAssignments'] = $pdo->query(
-            'SELECT cd.collaborator_id, u.name AS collaborator_name, cd.discipline_slug, d.name AS discipline_name '
+            'SELECT cd.collaborator_id, u.name AS collaborator_name, a.slug AS subject_area_slug, '
+            . 'a.name AS area_name, COUNT(DISTINCT cd.discipline_slug) AS module_count '
             . 'FROM collaborator_disciplines cd JOIN users u ON u.id = cd.collaborator_id '
-            . 'JOIN disciplines d ON d.slug = cd.discipline_slug ORDER BY u.name, d.name'
+            . 'JOIN disciplines d ON d.slug = cd.discipline_slug '
+            . 'JOIN subject_areas a ON a.id = d.area_id '
+            . 'GROUP BY cd.collaborator_id, u.name, a.slug, a.name ORDER BY u.name, a.name'
         )->fetchAll();
 
         $statement = $pdo->query(
             "SELECT cs.id, cs.title, cs.content_type, cs.description, cs.resource_url, cs.status, "
-            . 'cs.discipline_slug, d.name AS discipline_name, u.name AS author_name, cs.created_at '
+            . 'cs.discipline_slug, d.name AS discipline_name, COALESCE(a.name, \'Sem disciplina\') AS area_name, '
+            . 'u.name AS author_name, cs.created_at '
             . 'FROM content_submissions cs JOIN disciplines d ON d.slug = cs.discipline_slug '
+            . 'LEFT JOIN subject_areas a ON a.id = d.area_id '
             . "JOIN users u ON u.id = cs.submitted_by WHERE cs.status = 'pending' ORDER BY cs.created_at"
         );
         $data['submissions'] = $statement->fetchAll();
@@ -403,12 +440,57 @@ try {
             app_json_response(200, ['ok' => true, 'message' => 'Perfil atualizado.']);
         }
 
+        case 'admin_create_subject_area': {
+            workspace_require_role($user, ['admin']);
+            $name = trim((string) ($input['name'] ?? ''));
+            $description = trim((string) ($input['description'] ?? ''));
+            if ($name === '' || workspace_text_length($name) > 160 || workspace_text_length($description) > 1000) {
+                app_json_response(422, ['ok' => false, 'message' => 'Informe um nome de disciplina e uma descrição válida.']);
+            }
+            $baseSlug = workspace_subject_slug($name);
+            $slug = $baseSlug;
+            $suffix = 2;
+            $statement = $pdo->prepare('SELECT 1 FROM subject_areas WHERE slug = ? LIMIT 1');
+            while (true) {
+                $statement->execute([$slug]);
+                if (!$statement->fetchColumn()) {
+                    break;
+                }
+                $suffixText = '-' . $suffix++;
+                $slug = substr($baseSlug, 0, 80 - strlen($suffixText)) . $suffixText;
+            }
+            $statement = $pdo->prepare('INSERT INTO subject_areas (slug, name, description) VALUES (?, ?, ?)');
+            $statement->execute([$slug, $name, $description]);
+            app_json_response(201, ['ok' => true, 'message' => 'Disciplina criada no catálogo administrativo.']);
+        }
+
+        case 'admin_update_subject_area': {
+            workspace_require_role($user, ['admin']);
+            $areaId = filter_var($input['area_id'] ?? null, FILTER_VALIDATE_INT);
+            $name = trim((string) ($input['name'] ?? ''));
+            $description = trim((string) ($input['description'] ?? ''));
+            if (!$areaId || $areaId < 1 || $name === '' || workspace_text_length($name) > 160
+                || workspace_text_length($description) > 1000) {
+                app_json_response(422, ['ok' => false, 'message' => 'Disciplina ou descrição inválida.']);
+            }
+            $statement = $pdo->prepare('UPDATE subject_areas SET name = ?, description = ? WHERE id = ?');
+            $statement->execute([$name, $description, $areaId]);
+            if ($statement->rowCount() === 0) {
+                $statement = $pdo->prepare('SELECT 1 FROM subject_areas WHERE id = ?');
+                $statement->execute([$areaId]);
+                if (!$statement->fetchColumn()) {
+                    app_json_response(404, ['ok' => false, 'message' => 'Disciplina não encontrada.']);
+                }
+            }
+            app_json_response(200, ['ok' => true, 'message' => 'Disciplina atualizada.']);
+        }
+
         case 'admin_assign_discipline': {
             workspace_require_role($user, ['admin']);
             $collaboratorId = filter_var($input['user_id'] ?? null, FILTER_VALIDATE_INT);
-            $disciplineSlug = (string) ($input['discipline_slug'] ?? '');
+            $areaSlug = (string) ($input['subject_area_slug'] ?? '');
             $assigned = filter_var($input['assigned'] ?? true, FILTER_VALIDATE_BOOLEAN);
-            if (!$collaboratorId || $collaboratorId < 1 || $disciplineSlug === '') {
+            if (!$collaboratorId || $collaboratorId < 1 || $areaSlug === '') {
                 app_json_response(422, ['ok' => false, 'message' => 'Colaborador e disciplina são obrigatórios.']);
             }
             $statement = $pdo->prepare("SELECT id FROM users WHERE id = ? AND role = 'collaborator' LIMIT 1");
@@ -416,24 +498,40 @@ try {
             if (!$statement->fetchColumn()) {
                 app_json_response(404, ['ok' => false, 'message' => 'Colaborador não encontrado.']);
             }
-            $statement = $pdo->prepare('SELECT slug FROM disciplines WHERE slug = ? LIMIT 1');
-            $statement->execute([$disciplineSlug]);
-            if (!$statement->fetchColumn()) {
+            $statement = $pdo->prepare('SELECT id FROM subject_areas WHERE slug = ? LIMIT 1');
+            $statement->execute([$areaSlug]);
+            $areaId = $statement->fetchColumn();
+            if (!$areaId) {
                 app_json_response(404, ['ok' => false, 'message' => 'Disciplina não encontrada.']);
             }
+            $statement = $pdo->prepare('SELECT slug FROM disciplines WHERE area_id = ?');
+            $statement->execute([(int) $areaId]);
+            $moduleSlugs = $statement->fetchAll(PDO::FETCH_COLUMN);
+            if ($moduleSlugs === []) {
+                app_json_response(409, ['ok' => false, 'message' => 'Esta disciplina ainda não possui módulos para atribuir à equipe.']);
+            }
             if ($assigned) {
+                $pdo->beginTransaction();
                 $statement = $pdo->prepare(
                     'INSERT IGNORE INTO collaborator_disciplines (collaborator_id, discipline_slug, assigned_by) VALUES (?, ?, ?)'
                 );
-                $statement->execute([$collaboratorId, $disciplineSlug, (int) $user['id']]);
+                foreach ($moduleSlugs as $moduleSlug) {
+                    $statement->execute([$collaboratorId, $moduleSlug, (int) $user['id']]);
+                }
+                $pdo->commit();
             } else {
-                $statement = $pdo->prepare('DELETE FROM collaborator_disciplines WHERE collaborator_id = ? AND discipline_slug = ?');
-                $statement->execute([$collaboratorId, $disciplineSlug]);
+                $pdo->beginTransaction();
                 $statement = $pdo->prepare(
-                    'DELETE cc FROM class_collaborators cc JOIN classes c ON c.id = cc.class_id '
-                    . 'WHERE cc.collaborator_id = ? AND c.discipline_slug = ?'
+                    'DELETE cd FROM collaborator_disciplines cd JOIN disciplines d ON d.slug = cd.discipline_slug '
+                    . 'WHERE cd.collaborator_id = ? AND d.area_id = ?'
                 );
-                $statement->execute([$collaboratorId, $disciplineSlug]);
+                $statement->execute([$collaboratorId, (int) $areaId]);
+                $statement = $pdo->prepare(
+                    'DELETE cc FROM class_collaborators cc JOIN disciplines d ON d.slug = cc.discipline_slug '
+                    . 'WHERE cc.collaborator_id = ? AND d.area_id = ?'
+                );
+                $statement->execute([$collaboratorId, (int) $areaId]);
+                $pdo->commit();
             }
             app_json_response(200, ['ok' => true, 'message' => 'Atribuição atualizada.']);
         }

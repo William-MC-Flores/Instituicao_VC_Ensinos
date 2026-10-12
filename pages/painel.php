@@ -10,7 +10,7 @@ if (empty($_SESSION['user_id'])) {
 }
 
 try {
-    $statement = app_db()->prepare('SELECT name, email, role, plan FROM users WHERE id = ? LIMIT 1');
+    $statement = app_db()->prepare('SELECT name, email, role, plan, email_verified_at FROM users WHERE id = ? LIMIT 1');
     $statement->execute([(int) $_SESSION['user_id']]);
     $user = $statement->fetch();
 } catch (Throwable $error) {
@@ -19,8 +19,8 @@ try {
     exit('Não foi possível carregar sua conta agora.');
 }
 
-if (!$user) {
-    unset($_SESSION['user_id']);
+if (!$user || $user['email_verified_at'] === null) {
+    unset($_SESSION['user_id'], $_SESSION['csrf_token']);
     header('Location: ' . app_url('pages/login.html'));
     exit;
 }
@@ -187,14 +187,25 @@ if (!$user) {
       </section>
 
       <section class="workspace-section" data-admin-panel hidden>
-        <div class="profile-section-heading"><div><span class="profile-eyebrow">ADMINISTRAÇÃO</span><h2>Contas, perfis e planos</h2></div></div>
+        <div class="profile-section-heading"><div><span class="profile-eyebrow">EQUIPE ADMINISTRATIVA</span><h2>Gerenciar contas e equipe</h2></div></div>
+        <p class="workspace-section__note">Promova contas a colaborador ou administrador e altere permissões da equipe. Novos usuários devem criar a própria conta antes de serem promovidos.</p>
         <div class="workspace-list" data-user-management></div>
+      </section>
+      <section class="workspace-section" data-admin-panel hidden>
+        <div class="profile-section-heading"><div><span class="profile-eyebrow">CATÁLOGO ACADÊMICO</span><h2>Gerenciar disciplinas</h2></div></div>
+        <p class="workspace-section__note">Disciplinas agrupam os módulos e cursos já existentes. A criação de uma disciplina organiza o catálogo, mas não cria aulas ou módulos automaticamente.</p>
+        <form class="workspace-form workspace-form--inline" data-subject-area-create-form>
+          <label>Nome da disciplina<input name="name" maxlength="160" required placeholder="Ex.: Inteligência Artificial"></label>
+          <label>Descrição<textarea name="description" rows="2" maxlength="1000" placeholder="Apresente os assuntos desta disciplina."></textarea></label>
+          <button type="submit">Adicionar disciplina</button>
+        </form>
+        <div class="workspace-list" data-subject-area-management></div>
       </section>
       <section class="workspace-section" data-admin-panel hidden>
         <div class="profile-section-heading"><div><span class="profile-eyebrow">EQUIPE PEDAGÓGICA</span><h2>Atribuir colaborador a uma disciplina</h2></div></div>
         <form class="workspace-form workspace-form--inline" data-discipline-assignment-form>
           <label>Colaborador<select name="user_id" required data-collaborator-users></select></label>
-          <label>Disciplina<select name="discipline_slug" required data-all-disciplines></select></label>
+          <label>Disciplina<select name="subject_area_slug" required data-all-disciplines></select></label>
           <button type="submit">Atribuir disciplina</button>
         </form>
         <div class="workspace-list" data-discipline-assignments></div>
@@ -215,6 +226,6 @@ if (!$user) {
       </section>
     </div>
   </main>
-  <script type="module" src="../js/cadastro/painel.js?v=20261012-profile"></script>
+  <script type="module" src="../js/cadastro/painel.js?v=20261012-subject-areas"></script>
 </body>
 </html>

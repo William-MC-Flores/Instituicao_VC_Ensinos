@@ -30,6 +30,7 @@ const disciplinas = [
         icons: ["fa-solid fa-database"],
         dificuldade: "Fácil",
         categoria: "back-end",
+        area: "banco-de-dados",
         duracao: "45min"
     },
     {
@@ -40,6 +41,7 @@ const disciplinas = [
         icons: ["fa-solid fa-database"],
         dificuldade: "Médio",
         categoria: "back-end",
+        area: "banco-de-dados",
         duracao: "45min"
     },
     {
@@ -50,6 +52,7 @@ const disciplinas = [
         icons: ["fa-solid fa-database"],
         dificuldade: "Dificil",
         categoria: "back-end",
+        area: "banco-de-dados",
         duracao: "1h"
     },
 
@@ -62,6 +65,7 @@ const disciplinas = [
         icons: ["fa-solid fa-pen-nib"],
         dificuldade: "Médio",
         categoria: "front-end",
+        area: "design-grafico",
         duracao: "2h"
     },
     {
@@ -72,6 +76,7 @@ const disciplinas = [
         icons: ["fa-solid fa-image"],
         dificuldade: "Difícil",
         categoria: "front-end",
+        area: "design-grafico",
         duracao: "5h"
     },
 
@@ -84,6 +89,7 @@ const disciplinas = [
         icons: ["fa-solid fa-mug-hot"],
         dificuldade: "Fácil",
         categoria: "back-end",
+        area: "java",
         duracao: "1h"
     },
     {
@@ -94,6 +100,7 @@ const disciplinas = [
         icons: ["fa-solid fa-mug-hot"],
         dificuldade: "Fácil",
         categoria: "back-end",
+        area: "java",
         duracao: "2h"
     },
     {
@@ -104,6 +111,7 @@ const disciplinas = [
         icons: ["fa-solid fa-mug-hot"],
         dificuldade: "Fácil",
         categoria: "back-end",
+        area: "java",
         duracao: "2h"
     },
     {
@@ -114,6 +122,7 @@ const disciplinas = [
         icons: ["fa-solid fa-mug-hot"],
         dificuldade: "Médio",
         categoria: "back-end",
+        area: "java",
         duracao: "1h"
     },
     {
@@ -124,6 +133,7 @@ const disciplinas = [
         icons: ["fa-solid fa-mug-hot"],
         dificuldade: "Médio",
         categoria: "back-end",
+        area: "java",
         duracao: "1h"
     },
     {
@@ -134,6 +144,7 @@ const disciplinas = [
         icons: ["fa-solid fa-mug-hot"],
         dificuldade: "Díficil",
         categoria: "back-end",
+        area: "java",
         duracao: "1h"
     },
     {
@@ -144,6 +155,7 @@ const disciplinas = [
         icons: ["fa-solid fa-mug-hot"],
         dificuldade: "Díficil",
         categoria: "back-end",
+        area: "java",
         duracao: "2h"
     },
 
@@ -157,6 +169,7 @@ const disciplinas = [
         icons: ["fa-brands fa-html5", "fa-brands fa-css3-alt"],
         dificuldade: "Médio",
         categoria: "front-end",
+        area: "programacao-web",
         duracao: "3h"
     },
     
@@ -164,9 +177,74 @@ const disciplinas = [
 
 const cardContainer = document.querySelector(".cards");
 const filtroCategorias = document.querySelector(".filtro_categorias");
+const filtroDisciplinas = document.querySelector(".filtro_disciplinas");
+const filtroToggle = document.querySelector(".catalog-filter-toggle");
+const filtroGroups = document.querySelector("#catalog-filters");
 const pesquisarInput = document.querySelector("#pesquisarInput");
+const disciplinaStatus = document.querySelector("#catalog-discipline-status");
 let categoriaSelecionada = "todas";
+let areaSelecionada = "todas";
 let termoBusca = "";
+const nomesDisciplinas = new Map([
+    ["banco-de-dados", "Banco de Dados"],
+    ["java", "Java"],
+    ["programacao-web", "Programação Web"],
+    ["design-grafico", "Design Gráfico"],
+]);
+const iconesDisciplinas = new Map([
+    ["todas", "fa-solid fa-book-open"],
+    ["banco-de-dados", "fa-solid fa-database"],
+    ["java", "fa-solid fa-mug-hot"],
+    ["programacao-web", "fa-solid fa-laptop-code"],
+    ["design-grafico", "fa-solid fa-pen-nib"],
+]);
+const escaparHtml = (value) => String(value ?? "").replace(/[&<>"']/g, (character) => ({
+    "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;",
+}[character]));
+
+const carregarDisciplinas = async () => {
+    try {
+        const endpoint = new URL("../php/api/catalog.php", import.meta.url);
+        const response = await fetch(endpoint, { credentials: "same-origin", cache: "no-store" });
+        const result = await response.json();
+        if (!response.ok || !result?.ok || !Array.isArray(result.data?.subjectAreas)) {
+            throw new Error(result?.message || "Resposta inválida ao consultar disciplinas.");
+        }
+        result.data.subjectAreas.forEach((area) => nomesDisciplinas.set(area.slug, area.name));
+        if (filtroDisciplinas) {
+            filtroDisciplinas.replaceChildren();
+            const areas = [{ slug: "todas", name: "Todas" }, ...result.data.subjectAreas];
+            areas.forEach((area, index) => {
+                const button = document.createElement("button");
+                button.type = "button";
+                button.dataset.area = area.slug;
+                button.setAttribute("aria-pressed", String(index === 0));
+                const icon = document.createElement("i");
+                icon.className = iconesDisciplinas.get(area.slug) || "fa-solid fa-book-open";
+                icon.setAttribute("aria-hidden", "true");
+                button.append(icon, document.createTextNode(area.name));
+                filtroDisciplinas.append(button);
+            });
+        }
+    } catch (error) {
+        console.error("Falha ao carregar disciplinas do catálogo:", error);
+        if (disciplinaStatus) {
+            disciplinaStatus.textContent = "Não foi possível atualizar a lista de disciplinas. Exibindo as opções padrão.";
+        }
+    }
+};
+
+await carregarDisciplinas();
+
+filtroToggle?.addEventListener("click", () => {
+    const expanded = filtroToggle.getAttribute("aria-expanded") === "true";
+    filtroToggle.setAttribute("aria-expanded", String(!expanded));
+    filtroGroups.hidden = expanded;
+    filtroToggle.querySelector("[data-filter-toggle-label]").textContent = expanded
+        ? "Mostrar filtros"
+        : "Ocultar filtros";
+    filtroToggle.setAttribute("aria-label", expanded ? "Mostrar filtros do catálogo" : "Ocultar filtros do catálogo");
+});
 
 const embaralharDisciplinas = (disciplinas) => {
     for (let i = disciplinas.length - 1; i > 0; i--) {
@@ -211,7 +289,7 @@ const verDisciplinas = (disciplinas) => {
                     </div>
                     <div class="dificuldade_card">
                         <i class="fa-solid fa-layer-group" aria-hidden="true"></i>
-                        <h2>${e.categoria}</h2>
+                        <h2>${escaparHtml(nomesDisciplinas.get(e.area) || "Outras disciplinas")}</h2>
                     </div>
                 </div>
             </div>
@@ -254,8 +332,9 @@ const aplicarFiltros = () => {
     const filtradas = disciplinas.filter((disciplina) => {
         const correspondeCategoria = categoriaSelecionada === "todas"
             || disciplina.categoria.toLowerCase() === categoriaSelecionada;
+        const correspondeDisciplina = areaSelecionada === "todas" || disciplina.area === areaSelecionada;
         const correspondeBusca = disciplina.titulo.toLowerCase().includes(termoBusca);
-        return correspondeCategoria && correspondeBusca;
+        return correspondeCategoria && correspondeDisciplina && correspondeBusca;
     });
 
     verDisciplinas(embaralharDisciplinas(filtradas));
@@ -264,13 +343,30 @@ const aplicarFiltros = () => {
 aplicarFiltros();
 
 filtroCategorias?.addEventListener("click", (e) => {
-    if (e.target.tagName === "BUTTON") {
-        categoriaSelecionada = e.target.dataset.categoria.toLowerCase();
+    const button = e.target.closest("button[data-categoria]");
+    if (button) {
+        categoriaSelecionada = button.dataset.categoria.toLowerCase();
         filtroCategorias.querySelectorAll("button").forEach((button) => {
-            button.setAttribute("aria-pressed", String(button === e.target));
+            button.setAttribute("aria-pressed", String(button === e.target.closest("button")));
         });
         aplicarFiltros();
     }
+});
+
+filtroDisciplinas?.addEventListener("click", (event) => {
+    const button = event.target.closest("button[data-area]");
+    if (!button) return;
+    areaSelecionada = button.dataset.area;
+    if (areaSelecionada === "todas") {
+        categoriaSelecionada = "todas";
+        filtroCategorias?.querySelectorAll("button").forEach((filterButton) => {
+            filterButton.setAttribute("aria-pressed", "false");
+        });
+    }
+    filtroDisciplinas.querySelectorAll("button").forEach((filterButton) => {
+        filterButton.setAttribute("aria-pressed", String(filterButton === button));
+    });
+    aplicarFiltros();
 });
 
 pesquisarInput?.addEventListener("input", () => {

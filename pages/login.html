@@ -7,7 +7,7 @@
   <link rel="stylesheet" href="../css/login_cadastro.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
   <script src="../js/theme.js"></script>
-  <link rel="stylesheet" href="../css/design-system.css?v=20261016">
+  <link rel="stylesheet" href="../css/design-system.css?v=20261012-email-verification">
   <link rel="shortcut icon" href="../img/logoPequenaBranca.png" type="image/x-icon">
 </head>
 <body>
@@ -66,11 +66,13 @@
           </form>
           <div id="error-message" class="message error" role="alert" aria-live="polite"></div>
           <div id="success-message" class="message success" role="status" aria-live="polite"></div>
+          <button class="auth-secondary-action" id="resend-verification" type="button" hidden>Reenviar e-mail de verificação</button>
+          <p class="auth-form__switch"><a href="forgot-password.html">Esqueci minha senha</a></p>
           <p class="auth-form__switch">Ainda não tem uma conta? <a href="register.html">Cadastre-se</a></p>
         </div>
       </section>
     </div>
   </main>
-  <script type="module" src="../js/cadastro/app.js"></script>
+  <script type="module" src="../js/cadastro/app.js?v=20261012-email-verification"></script>
 </body>
 </html>

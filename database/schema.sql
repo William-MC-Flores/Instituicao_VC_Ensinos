@@ -5,6 +5,7 @@ CREATE TABLE IF NOT EXISTS users (
   name VARCHAR(120) NOT NULL,
   email VARCHAR(254) NOT NULL,
   password_hash VARCHAR(255) NOT NULL,
+  email_verified_at DATETIME NULL,
   role ENUM('student', 'collaborator', 'admin') NOT NULL DEFAULT 'student',
   plan ENUM('free', 'standard', 'pro') NOT NULL DEFAULT 'free',
   avatar_path VARCHAR(255) NULL,
@@ -21,10 +22,44 @@ CREATE TABLE IF NOT EXISTS users (
   UNIQUE KEY uq_users_email (email)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+CREATE TABLE IF NOT EXISTS account_action_tokens (
+  id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
+  user_id BIGINT UNSIGNED NOT NULL,
+  purpose ENUM('email_verification', 'password_reset') NOT NULL,
+  token_hash CHAR(64) NOT NULL,
+  expires_at DATETIME NOT NULL,
+  created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (id),
+  UNIQUE KEY uq_account_action_tokens_hash (token_hash),
+  UNIQUE KEY uq_account_action_tokens_user_purpose (user_id, purpose),
+  KEY idx_account_action_tokens_expiry (expires_at),
+  CONSTRAINT fk_account_action_tokens_user FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE IF NOT EXISTS subject_areas (
+  id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
+  slug VARCHAR(80) NOT NULL,
+  name VARCHAR(160) NOT NULL,
+  description VARCHAR(1000) NOT NULL DEFAULT '',
+  created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (id),
+  UNIQUE KEY uq_subject_areas_slug (slug)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+INSERT IGNORE INTO subject_areas (slug, name, description) VALUES
+  ('banco-de-dados', 'Banco de Dados', 'Modelagem, consultas e administração de bancos de dados.'),
+  ('java', 'Java', 'Lógica de programação e desenvolvimento com Java.'),
+  ('programacao-web', 'Programação Web', 'Fundamentos de desenvolvimento para a web.'),
+  ('design-grafico', 'Design Gráfico', 'Ferramentas e fundamentos de criação visual.');
+
 CREATE TABLE IF NOT EXISTS disciplines (
   slug VARCHAR(80) NOT NULL,
   name VARCHAR(160) NOT NULL,
-  PRIMARY KEY (slug)
+  area_id BIGINT UNSIGNED NULL,
+  PRIMARY KEY (slug),
+  KEY idx_disciplines_area (area_id),
+  CONSTRAINT fk_disciplines_area FOREIGN KEY (area_id) REFERENCES subject_areas (id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 INSERT IGNORE INTO disciplines (slug, name) VALUES
@@ -41,6 +76,16 @@ INSERT IGNORE INTO disciplines (slug, name) VALUES
   ('java-modulo-7', 'Vetores - JAVA'),
   ('java-modulo-8', 'JOptionpane - JAVA'),
   ('html-css', 'Curso de HTML e CSS');
+
+UPDATE disciplines d
+JOIN subject_areas a ON a.slug = CASE
+  WHEN d.slug LIKE 'banco-dados-%' THEN 'banco-de-dados'
+  WHEN d.slug LIKE 'java-%' THEN 'java'
+  WHEN d.slug IN ('illustrator', 'photoshop') THEN 'design-grafico'
+  WHEN d.slug = 'html-css' THEN 'programacao-web'
+END
+SET d.area_id = a.id
+WHERE d.area_id IS NULL;
 
 CREATE TABLE IF NOT EXISTS classes (
   id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
