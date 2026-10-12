@@ -5653,3 +5653,458 @@ html[data-theme="light"] .auth-form__switch a {
     min-height: 530px;
   }
 }
+
+.topicos {
+  background:
+    radial-gradient(ellipse at 10% 0%, rgba(159, 99, 206, 0.12), transparent 48%),
+    linear-gradient(180deg, #17131d 0%, #100e15 100%);
+  box-shadow: 10px 0 32px rgba(8, 5, 12, 0.2);
+}
+
+.topicos .escrita_topicos {
+  position: relative;
+  min-height: 66px;
+  justify-content: space-between;
+  padding: 0 17px;
+  box-sizing: border-box;
+  border-bottom: 1px solid rgba(200, 159, 231, 0.15);
+  background: linear-gradient(120deg, #31213d, #25192f);
+}
+
+.topicos .escrita_topicos h1 {
+  letter-spacing: 0.015em;
+}
+
+.topicos .escrita_topicos button {
+  display: grid;
+  width: 34px;
+  height: 34px;
+  place-items: center;
+  border: 1px solid rgba(215, 184, 240, 0.23);
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.06);
+  cursor: pointer;
+  transition: background 180ms ease, border-color 180ms ease, transform 180ms ease;
+}
+
+.topicos .escrita_topicos button:hover {
+  transform: translateX(-2px);
+  border-color: rgba(215, 184, 240, 0.55);
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.elementos {
+  align-items: stretch;
+  padding: 12px 10px 20px;
+  box-sizing: border-box;
+  gap: 5px;
+  scrollbar-color: #624775 #17131d;
+}
+
+.elementos > .caixa_elemento {
+  display: flex;
+  width: 100%;
+  min-height: 52px;
+  flex: 0 0 auto;
+  overflow: hidden;
+  border: 1px solid rgba(204, 175, 226, 0.09);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.025);
+  transition: border-color 180ms ease, background 180ms ease, box-shadow 180ms ease;
+}
+
+.elementos > .caixa_elemento:has(> button[aria-expanded="true"]) {
+  border-color: rgba(184, 137, 220, 0.32);
+  background: rgba(156, 103, 197, 0.07);
+  box-shadow: 0 5px 16px rgba(5, 3, 8, 0.15);
+}
+
+.elementos > .caixa_elemento > .caixa_cor {
+  width: 3px;
+  min-height: 100%;
+  flex: 0 0 3px;
+  background: linear-gradient(180deg, #d2a6f0, #8e5db4);
+  opacity: 0.48;
+  transition: opacity 180ms ease, width 180ms ease;
+}
+
+.elementos > .caixa_elemento:has(> button[aria-expanded="true"]) > .caixa_cor {
+  width: 4px;
+  flex-basis: 4px;
+  opacity: 1;
+}
+
+.elementos > .caixa_elemento > button.caixa_elemento {
+  width: 100%;
+  min-height: 52px;
+  height: auto;
+  padding: 0 14px;
+  border: 0;
+  background: transparent;
+  color: #e9e0f1;
+  font-size: 14px;
+  font-weight: 650;
+  text-align: left;
+}
+
+.elementos > .caixa_elemento > button.caixa_elemento:hover {
+  background: rgba(255, 255, 255, 0.045);
+}
+
+.elementos > .caixa_elemento > button.caixa_elemento > i {
+  width: 17px;
+  margin: 0 2px 0 12px;
+  color: #c4a1dd;
+  font-size: 12px;
+  transition: transform 220ms ease, color 180ms ease;
+}
+
+.elementos > .caixa_elemento > button[aria-expanded="true"] > i {
+  color: #e1c1fa;
+}
+
+.elementos .subitems {
+  display: block;
+  width: auto;
+  max-height: 0;
+  flex: 0 0 auto;
+  margin: -5px 0 2px 12px;
+  padding-left: 12px;
+  overflow: hidden;
+  border-left: 1px solid rgba(184, 137, 220, 0.3);
+  opacity: 0;
+  visibility: hidden;
+  transition:
+    max-height 300ms cubic-bezier(0.2, 0.75, 0.25, 1),
+    opacity 180ms ease,
+    margin 220ms ease,
+    visibility 0s linear 300ms;
+}
+
+.elementos .subitems.active {
+  display: block;
+  margin-top: 2px;
+  opacity: 1;
+  visibility: visible;
+  transition:
+    max-height 340ms cubic-bezier(0.2, 0.75, 0.25, 1),
+    opacity 220ms ease 40ms,
+    margin 220ms ease,
+    visibility 0s;
+}
+
+.elementos .caixa_elemento_sub {
+  position: relative;
+  min-height: 43px;
+  justify-content: flex-start;
+  border-radius: 9px;
+  transition: background 160ms ease, transform 160ms ease;
+}
+
+.elementos .caixa_elemento_sub:hover {
+  transform: translateX(2px);
+  background: rgba(201, 165, 229, 0.07);
+}
+
+.elementos .caixa_elemento_sub > i {
+  flex-basis: 24px;
+  width: 24px;
+  color: #9b79b4;
+  font-size: 10px;
+  transition: color 160ms ease, transform 180ms ease;
+}
+
+.elementos .caixa_elemento_sub button {
+  min-height: 43px;
+  height: auto;
+  padding: 8px 10px 8px 2px;
+  border: 0;
+  border-radius: 9px;
+  background: transparent;
+  color: #c8bdcf;
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1.35;
+  text-align: left;
+}
+
+.elementos .caixa_elemento_sub button:hover {
+  background: transparent;
+  color: #fff;
+}
+
+.elementos .caixa_elemento_sub button[aria-current="true"] {
+  background: rgba(164, 111, 204, 0.16);
+  box-shadow: inset 2px 0 #c99be9;
+  color: #f4e8ff;
+}
+
+.elementos .caixa_elemento_sub:has(button[aria-current="true"]) > i {
+  transform: translateX(2px);
+  color: #d5b0f0;
+}
+
+.topicos.minimized .elementos {
+  display: none;
+}
+
+.topicos.minimized .escrita_topicos {
+  justify-content: center;
+  padding: 0;
+}
+
+.topicos.minimized .escrita_topicos button:hover {
+  transform: translateX(2px);
+}
+
+#closeButton {
+  display: grid;
+  width: 38px;
+  height: 38px;
+  flex: 0 0 38px;
+  place-items: center;
+  padding: 0;
+  border: 1px solid var(--color-border);
+  border-radius: 11px;
+  background: var(--color-surface, #211a29);
+  color: var(--color-muted);
+  line-height: 1;
+  transition: color 160ms ease, background 160ms ease, border-color 160ms ease, transform 160ms ease;
+}
+
+#closeButton > i {
+  display: block;
+  color: inherit;
+  font-size: 16px;
+  line-height: 1;
+}
+
+#closeButton:hover {
+  transform: rotate(90deg);
+  border-color: #bc8bdd;
+  background: rgba(174, 119, 210, 0.16);
+  color: var(--color-ink);
+}
+
+#closeButton:focus-visible {
+  outline: 2px solid #bd99de;
+  outline-offset: 3px;
+}
+
+.course-pdf-preview {
+  display: grid;
+  width: 100%;
+  gap: 12px;
+  margin: 20px 0 12px;
+}
+
+.course-pdf-preview h2 {
+  margin: 0;
+  color: var(--color-ink);
+  font-size: 17px;
+}
+
+.course-pdf-preview iframe {
+  display: block;
+  width: 100%;
+  height: clamp(420px, 72vh, 860px);
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  background: #fff;
+}
+
+.course-pdf-fallback {
+  margin: 0;
+  color: var(--color-muted);
+  font-size: 13px;
+}
+
+.course-pdf-fallback a {
+  color: var(--color-accent);
+}
+
+.course-pdf-preview + .botao_download {
+  width: fit-content;
+  gap: 9px;
+  margin-left: 0;
+}
+
+.share-actions {
+  display: grid;
+  width: 100%;
+  grid-template-columns: repeat(auto-fit, minmax(112px, 1fr));
+  gap: 9px;
+}
+
+.share-actions button,
+.share-social-link {
+  display: inline-flex;
+  min-width: 0;
+  min-height: 42px;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 8px 10px;
+  border: 1px solid #493657;
+  border-radius: 9px;
+  background: #21182a;
+  color: #f3edf8;
+  font: inherit;
+  font-size: 12px;
+  font-weight: 650;
+  text-decoration: none;
+  cursor: pointer;
+  transition: border-color 160ms ease, background-color 160ms ease, transform 160ms ease;
+}
+
+.share-actions button:hover,
+.share-social-link:hover {
+  transform: translateY(-1px);
+  border-color: #a678d2;
+  background: #30223c;
+}
+
+.share-actions button:focus-visible,
+.share-social-link:focus-visible {
+  outline: 2px solid #bd99de;
+  outline-offset: 2px;
+}
+
+.share-actions i {
+  font-size: 15px;
+}
+
+.share-copy-button {
+  border-color: #a678d2 !important;
+  background: #a678d2 !important;
+  color: #130d19 !important;
+}
+
+.share-status {
+  min-height: 20px;
+  margin: 0;
+  color: var(--color-muted);
+  font-size: 12px;
+  font-weight: 500;
+}
+
+html[data-theme="light"] .topicos {
+  background:
+    radial-gradient(ellipse at 10% 0%, rgba(140, 91, 181, 0.08), transparent 48%),
+    linear-gradient(180deg, #fbf9fd 0%, #f4eff8 100%);
+  box-shadow: 8px 0 28px rgba(54, 34, 74, 0.08);
+}
+
+html[data-theme="light"] .topicos .escrita_topicos {
+  border-color: rgba(112, 66, 154, 0.16);
+  background: linear-gradient(120deg, #eee5f5, #e7dcf0);
+}
+
+html[data-theme="light"] .topicos .escrita_topicos h1 {
+  color: #342440;
+}
+
+html[data-theme="light"] .topicos .escrita_topicos button {
+  border-color: rgba(112, 66, 154, 0.22);
+  background: rgba(255, 255, 255, 0.48);
+}
+
+html[data-theme="light"] .elementos {
+  scrollbar-color: #ad91c2 #f4eff8;
+}
+
+html[data-theme="light"] .elementos > .caixa_elemento {
+  border-color: rgba(112, 66, 154, 0.12);
+  background: rgba(255, 255, 255, 0.6);
+}
+
+html[data-theme="light"] .elementos > .caixa_elemento:has(> button[aria-expanded="true"]) {
+  border-color: rgba(112, 66, 154, 0.3);
+  background: rgba(140, 91, 181, 0.07);
+}
+
+html[data-theme="light"] .elementos > .caixa_elemento > button.caixa_elemento {
+  color: #332440;
+}
+
+html[data-theme="light"] .elementos > .caixa_elemento > button.caixa_elemento > i {
+  color: #835aa0;
+}
+
+html[data-theme="light"] .elementos .subitems {
+  border-color: rgba(112, 66, 154, 0.25);
+}
+
+html[data-theme="light"] .elementos .caixa_elemento_sub > i {
+  color: #8f70a6;
+}
+
+html[data-theme="light"] .elementos .caixa_elemento_sub button {
+  color: #5e5268;
+}
+
+html[data-theme="light"] .elementos .caixa_elemento_sub button:hover {
+  color: #332440;
+}
+
+html[data-theme="light"] .elementos .caixa_elemento_sub button[aria-current="true"] {
+  background: rgba(140, 91, 181, 0.12);
+  color: #372448;
+}
+
+html[data-theme="light"] #closeButton {
+  background: #f7f3fa;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .elementos > .caixa_elemento,
+  .elementos > .caixa_elemento > button.caixa_elemento > i,
+  .elementos .subitems,
+  .elementos .caixa_elemento_sub,
+  .elementos .caixa_elemento_sub > i,
+  .topicos .escrita_topicos button,
+  #closeButton {
+    transition-duration: 0.01ms !important;
+  }
+}
+
+html[data-theme="light"] .share-actions button,
+html[data-theme="light"] .share-social-link {
+  border-color: #e2dbe9;
+  background: #f7f3fa;
+  color: #33263e;
+}
+
+html[data-theme="light"] .share-actions button:hover,
+html[data-theme="light"] .share-social-link:hover {
+  border-color: #70429a;
+  background: #eee6f4;
+}
+
+html[data-theme="light"] .share-copy-button {
+  border-color: #70429a !important;
+  background: #70429a !important;
+  color: #fff !important;
+}
+
+@media (max-width: 780px) {
+  .course-pdf-preview iframe {
+    height: min(70vh, 720px);
+    min-height: 380px;
+  }
+
+  .popup {
+    max-height: calc(100vh - 32px);
+    overflow-y: auto;
+  }
+}
+
+@media (max-width: 480px) {
+  .share-actions {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .course-pdf-preview iframe {
+    min-height: 320px;
+  }
+}
