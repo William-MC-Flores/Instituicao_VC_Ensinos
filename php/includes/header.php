@@ -15,7 +15,7 @@ $pageTitle = $pageTitle ?? 'Início';
   <?php endforeach; ?>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
   <script src="<?= app_escape(app_url('js/theme.js')) ?>"></script>
-  <link rel="stylesheet" href="<?= app_escape(app_url('css/design-system.css?v=20261015')) ?>">
+  <link rel="stylesheet" href="<?= app_escape(app_url('css/design-system.css?v=20261018')) ?>">
   <title>VCensinos | <?= app_escape($pageTitle) ?></title>
 </head>
 <body>

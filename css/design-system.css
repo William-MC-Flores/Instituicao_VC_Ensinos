@@ -4708,6 +4708,232 @@ html[data-theme="light"] .escrita_popup {
   flex: 0 0 auto;
 }
 
+.card[data-course-brand="database"] {
+  --course-brand-color: #4479a1;
+}
+
+.card[data-course-brand="java"] {
+  --course-brand-color: #e11f26;
+}
+
+.card[data-course-brand="html-css"] {
+  --course-brand-color: #e34f26;
+}
+
+.card[data-course-brand="illustrator"] {
+  --course-brand-color: #ff9a00;
+}
+
+.card[data-course-brand="photoshop"] {
+  --course-brand-color: #31a8ff;
+}
+
+.course-icons {
+  align-items: center;
+  justify-content: flex-start;
+  gap: 10px;
+}
+
+.course-icon {
+  display: inline-grid;
+  width: 52px;
+  height: 52px;
+  flex: 0 0 52px;
+  place-items: center;
+  border: 1px solid color-mix(in srgb, var(--course-brand-color) 40%, transparent);
+  border-radius: 15px;
+  background: color-mix(in srgb, var(--course-brand-color) 15%, #17121d);
+  color: var(--course-brand-color);
+  font-size: 28px;
+  line-height: 1;
+  filter: drop-shadow(0 4px 10px color-mix(in srgb, var(--course-brand-color) 24%, transparent));
+}
+
+.course-icon.fa-html5 {
+  --course-brand-color: #e34f26;
+}
+
+.course-icon.fa-css3-alt {
+  --course-brand-color: #264de4;
+}
+
+html[data-theme="light"] .course-icon {
+  background: color-mix(in srgb, var(--course-brand-color) 10%, #fff);
+}
+
+.container_foto {
+  width: min(100%, 520px);
+  height: auto;
+  aspect-ratio: 11 / 5;
+  background: transparent;
+}
+
+.container_foto img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.caixa_dilema > i {
+  color: #fff;
+  font-size: clamp(32px, 3vw, 42px);
+}
+
+body:has(.all) {
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+body:has(.all) > header {
+  position: relative;
+  z-index: 2;
+  min-height: 70px;
+  padding: 8px clamp(14px, 3vw, 32px);
+}
+
+.container_header_curso {
+  min-height: 54px;
+  height: auto;
+  gap: clamp(10px, 2vw, 22px);
+}
+
+.escrita_header_curso {
+  min-width: 0;
+  flex: 1 1 auto;
+}
+
+.escrita_header_curso > span {
+  flex: 0 0 auto;
+  width: auto;
+  height: auto;
+  font-size: 20px;
+}
+
+.links_header_curso {
+  min-width: 0;
+}
+
+.links_header_curso h2 {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.header_compartilhe,
+.container_header_curso > .theme-toggle {
+  flex: 0 0 auto;
+}
+
+.all {
+  min-height: calc(100vh - 70px);
+}
+
+.topicos {
+  flex: 0 0 min(300px, 28vw);
+  width: min(300px, 28vw);
+  min-height: calc(100vh - 70px);
+  height: auto;
+}
+
+.topicos.minimized {
+  flex-basis: 50px;
+  width: 50px;
+  min-width: 50px;
+}
+
+.elementos {
+  height: auto;
+  min-height: 0;
+  flex: 1 1 auto;
+}
+
+.conteudos {
+  min-height: calc(100vh - 70px);
+  align-items: stretch;
+}
+
+.conteudo {
+  min-width: 0;
+}
+
+.conteudo > img {
+  width: min(100%, 560px);
+  height: auto;
+  object-fit: contain;
+}
+
+.conteudo_video iframe {
+  display: block;
+}
+
+@media (max-width: 780px) {
+  body:has(.all) > header {
+    padding: 10px 14px;
+  }
+
+  .container_header_curso {
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .escrita_header_curso {
+    flex: 1 1 100%;
+  }
+
+  .all {
+    min-height: 0;
+  }
+
+  .topicos,
+  .topicos.minimized {
+    width: 100%;
+    min-width: 0;
+    min-height: 0;
+    flex: 0 0 auto;
+  }
+
+  .topicos.minimized .elementos {
+    display: none;
+  }
+
+  .elementos {
+    width: 100%;
+    max-height: 260px;
+    flex: 0 1 auto;
+  }
+
+  .conteudos {
+    min-height: 60vh;
+    padding: 24px 16px;
+  }
+
+  .conteudo {
+    width: 100%;
+    padding: clamp(18px, 4vw, 28px);
+  }
+
+  .conteudos:has(.container_conteudo) > .conteudo {
+    padding: 0;
+  }
+}
+
+@media (max-width: 500px) {
+  .foto_index {
+    display: flex;
+  }
+
+  .container_foto {
+    width: min(100%, 520px);
+    height: auto;
+    aspect-ratio: 11 / 5;
+  }
+
+  .caixa_dilema > i {
+    font-size: 32px;
+  }
+}
+
 .redes .fa-brands {
   margin: 0;
 }

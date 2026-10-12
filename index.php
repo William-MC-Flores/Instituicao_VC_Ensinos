@@ -9,7 +9,7 @@ require __DIR__ . '/php/includes/header.php';
     <div class="container_index">
       <section class="foto_index" aria-label="Apresentação">
         <div class="container_foto">
-          <img src="<?= app_escape(app_url('img/index/capa.png')) ?>" alt="Estudantes aprendendo tecnologia">
+          <img src="<?= app_escape(app_url('img/index/capa.png')) ?>" alt="Banner da VC Ensinos com estudantes aprendendo tecnologia">
         </div>
       </section>
 
@@ -17,15 +17,15 @@ require __DIR__ . '/php/includes/header.php';
         <h2 id="proposta-titulo">Venha para a VC ensinos!</h2>
         <div class="container_dilema">
           <div class="caixa_dilema">
-            <img src="<?= app_escape(app_url('img/index/study.png')) ?>" alt="">
+            <i class="fa-solid fa-book-open" aria-hidden="true"></i>
             <h2>Aprende</h2>
           </div>
           <div class="caixa_dilema">
-            <img src="<?= app_escape(app_url('img/index/ensina.png')) ?>" alt="">
+            <i class="fa-solid fa-chalkboard-user" aria-hidden="true"></i>
             <h2>Ensina</h2>
           </div>
           <div class="caixa_dilema">
-            <img src="<?= app_escape(app_url('img/index/contribui.png')) ?>" alt="">
+            <i class="fa-solid fa-people-group" aria-hidden="true"></i>
             <h2>Contribui</h2>
           </div>
         </div>
@@ -91,7 +91,7 @@ require __DIR__ . '/php/includes/header.php';
   </div>
 </main>
 <?php require __DIR__ . '/php/includes/footer.php'; ?>
-<script src="<?= app_escape(app_url('js/index/exibir_cards.js')) ?>"></script>
+<script src="<?= app_escape(app_url('js/index/exibir_cards.js?v=20261018')) ?>"></script>
 <script type="module" src="<?= app_escape(app_url('js/cadastro/dashboard.js')) ?>"></script>
 </body>
 </html>

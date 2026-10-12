@@ -28,7 +28,7 @@ header {
 }
 
 
-span {
+.escrita_header_curso > span {
     width: 50px;
     height: 40px;
     display: flex;

@@ -32,6 +32,6 @@ require dirname(__DIR__) . '/php/includes/header.php';
 </main>
 <?php require dirname(__DIR__) . '/php/includes/footer.php'; ?>
 <script type="module" src="<?= app_escape(app_url('js/cadastro/dashboard.js')) ?>"></script>
-<script type="module" src="<?= app_escape(app_url('js/disciplinas.js')) ?>"></script>
+<script type="module" src="<?= app_escape(app_url('js/disciplinas.js?v=20261018')) ?>"></script>
 </body>
 </html>

@@ -26,7 +26,8 @@ const disciplinas = [
         titulo: "Banco de dados 1",
         descricao: "Aprenda a utilizar um banco de dados, com todas as suas funções e lógicas!",
         link: "../Pagina_disciplina/Banco_modulo1/banco1.html",
-        image: "../img/emblemas_cards/banco.png",
+        brand: "database",
+        icons: ["fa-solid fa-database"],
         dificuldade: "Fácil",
         categoria: "back-end",
         duracao: "45min"
@@ -35,7 +36,8 @@ const disciplinas = [
         titulo: "Banco de dados 2",
         descricao: "Voce aprendera",
         link: "../Pagina_disciplina/Banco_modulo2/banco2.html",
-        image: "../img/emblemas_cards/banco.png",
+        brand: "database",
+        icons: ["fa-solid fa-database"],
         dificuldade: "Médio",
         categoria: "back-end",
         duracao: "45min"
@@ -44,7 +46,8 @@ const disciplinas = [
         titulo: "Banco de dados 3",
         descricao: "Aprenda a utilizar um banco de dados, com todas as suas funções e lógicas!",
         link: "../Pagina_disciplina/Banco_modulo3/banco3.html",
-        image: "../img/emblemas_cards/banco.png",
+        brand: "database",
+        icons: ["fa-solid fa-database"],
         dificuldade: "Dificil",
         categoria: "back-end",
         duracao: "1h"
@@ -55,7 +58,8 @@ const disciplinas = [
         titulo: "Curso de Illustrator",
         descricao: "Aprenda a utilizar o Illustrator de uma forma incrível!",
         link: "../Pagina_disciplina/illustrator/illustrator.html",
-        image: "../img/emblemas_cards/illustrator.png",
+        brand: "illustrator",
+        icons: ["fa-solid fa-pen-nib"],
         dificuldade: "Médio",
         categoria: "front-end",
         duracao: "2h"
@@ -64,7 +68,8 @@ const disciplinas = [
         titulo: "Curso de Photoshop",
         descricao: "Aqui aprendera a usar o Photoshop",
         link: "../Pagina_disciplina/photoshop/photoshop.html",
-        image: "../img/emblemas_cards/Photo.png",
+        brand: "photoshop",
+        icons: ["fa-solid fa-image"],
         dificuldade: "Difícil",
         categoria: "front-end",
         duracao: "5h"
@@ -75,7 +80,8 @@ const disciplinas = [
         titulo: "Lógica de programação - JAVA",
         descricao: "O começo da jornada JAVA!!",
         link: "../Pagina_disciplina/Java_modulo1/java1.html",
-        image: "../img/emblemas_cards/java.png",
+        brand: "java",
+        icons: ["fa-solid fa-mug-hot"],
         dificuldade: "Fácil",
         categoria: "back-end",
         duracao: "1h"
@@ -84,7 +90,8 @@ const disciplinas = [
         titulo: "Tipos de dados - JAVA",
         descricao: "...",
         link: "../Pagina_disciplina/java_modulo2/java2.html",
-        image: "../img/emblemas_cards/java.png",
+        brand: "java",
+        icons: ["fa-solid fa-mug-hot"],
         dificuldade: "Fácil",
         categoria: "back-end",
         duracao: "2h"
@@ -93,7 +100,8 @@ const disciplinas = [
         titulo: "Comparação de dados - JAVA",
         descricao: "...",
         link: "../Pagina_disciplina/java_modulo3/java3.html",
-        image: "../img/emblemas_cards/java.png",
+        brand: "java",
+        icons: ["fa-solid fa-mug-hot"],
         dificuldade: "Fácil",
         categoria: "back-end",
         duracao: "2h"
@@ -102,7 +110,8 @@ const disciplinas = [
         titulo: "IF ELSE - JAVA",
         descricao: "Aprenda a operacao IF ELSE para seus codigos!!",
         link: "../Pagina_disciplina/java_modulo4/java4.html",
-        image: "../img/emblemas_cards/java.png",
+        brand: "java",
+        icons: ["fa-solid fa-mug-hot"],
         dificuldade: "Médio",
         categoria: "back-end",
         duracao: "1h"
@@ -111,7 +120,8 @@ const disciplinas = [
         titulo: "Teste de mesa - JAVA",
         descricao: "Aprenda a realizar o teste de mesa em seu codigo!!",
         link: "../Pagina_disciplina/java_modulo6/java6.html",
-        image: "../img/emblemas_cards/java.png",
+        brand: "java",
+        icons: ["fa-solid fa-mug-hot"],
         dificuldade: "Médio",
         categoria: "back-end",
         duracao: "1h"
@@ -120,7 +130,8 @@ const disciplinas = [
         titulo: "Vetores - JAVA",
         descricao: "Aprenda a utilizar vetores",
         link: "../Pagina_disciplina/java_modulo7/java7.html",
-        image: "../img/emblemas_cards/java.png",
+        brand: "java",
+        icons: ["fa-solid fa-mug-hot"],
         dificuldade: "Díficil",
         categoria: "back-end",
         duracao: "1h"
@@ -129,7 +140,8 @@ const disciplinas = [
         titulo: "JOptionpane - JAVA",
         descricao: "JOptionPane é o primeiro contato com códigos front-end, onde podemos utilizar modelos pré-prontos de caixas de diálogo para deixar o código mais interativo.",
         link: "../Pagina_disciplina/java_modulo8/java8.html",
-        image: "../img/emblemas_cards/java.png",
+        brand: "java",
+        icons: ["fa-solid fa-mug-hot"],
         dificuldade: "Díficil",
         categoria: "back-end",
         duracao: "2h"
@@ -141,7 +153,8 @@ const disciplinas = [
         titulo: "Curso de HTML e CSS",
         descricao: "Aprenda a base para qualquer site!",
         link: "../Pagina_disciplina/htmlecss/htmlecss.html",
-        image: "../img/emblemas_cards/htmlecss.png",
+        brand: "html-css",
+        icons: ["fa-brands fa-html5", "fa-brands fa-css3-alt"],
         dificuldade: "Médio",
         categoria: "front-end",
         duracao: "3h"
@@ -179,10 +192,10 @@ const verDisciplinas = (disciplinas) => {
 
     disciplinas.forEach(e => {
         cardContainer.innerHTML += `
-        <div class="card" data-id="${e.titulo}">
+        <div class="card" data-id="${e.titulo}" data-course-brand="${e.brand}">
             <div class="container_card">
-                <div class="foto_card">
-                    <img src="${e.image}" alt="">
+                <div class="foto_card course-icons" aria-hidden="true">
+                    ${e.icons.map(icon => `<i class="${icon} course-icon"></i>`).join("")}
                 </div>
                 <div class="duracao_card">
                     <i class="fa-regular fa-clock" aria-hidden="true"></i>
@@ -203,8 +216,8 @@ const verDisciplinas = (disciplinas) => {
                 </div>
             </div>
             <div class="descricao">
-                <div class="foto_card">
-                    <img src="${e.image}" alt="">
+                <div class="foto_card course-icons" aria-hidden="true">
+                    ${e.icons.map(icon => `<i class="${icon} course-icon"></i>`).join("")}
                 </div>
                 <h2>${e.titulo}</h2>
                 <p>${e.descricao}</p>

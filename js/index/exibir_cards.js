@@ -3,7 +3,8 @@ const cards_exibir = [
     {
         titulo: "Curso grátis de Banco de Dados",
         descricao: "Aprenda a utilizar um banco de dados, com todas as suas funções e lógicas!",
-        image: "img/emblemas_cards/banco.png",
+        brand: "database",
+        icons: ["fa-solid fa-database"],
         dificuldade: "Fácil",
         categoria: "back-end",
         duracao: "1:35h",
@@ -12,7 +13,8 @@ const cards_exibir = [
     {
         titulo: "Curso grátis de JAVA",
         descricao: "Aprenda a programar em Java!",
-        image: "img/emblemas_cards/java.png",
+        brand: "java",
+        icons: ["fa-solid fa-mug-hot"],
         dificuldade: "Fácil",
         categoria: "back-end",
         duracao: "1h",
@@ -21,7 +23,8 @@ const cards_exibir = [
     {
         titulo: "Ilustrator",
         descricao: "Faça seus supers desenhos!!",
-        image: "img/emblemas_cards/illustrator.png",
+        brand: "illustrator",
+        icons: ["fa-solid fa-pen-nib"],
         dificuldade: "Fácil",
         categoria: "front-end",
         duracao: "3h",
@@ -37,10 +40,10 @@ const verCards = (ver) => {
 
     ver.forEach(a => {
         container_cards_exibir.innerHTML += `
-                <div class="card" data-id="${a.titulo}">
+                <div class="card" data-id="${a.titulo}" data-course-brand="${a.brand}">
             <div class="container_card">
-                <div class="foto_card">
-                    <img src="${a.image}" alt="">
+                <div class="foto_card course-icons" aria-hidden="true">
+                    ${a.icons.map(icon => `<i class="${icon} course-icon"></i>`).join("")}
                 </div>
                 <div class="duracao_card">
                     <i class="fa-regular fa-clock" aria-hidden="true"></i>
@@ -62,8 +65,8 @@ const verCards = (ver) => {
 
             </div>
             <div class="descricao">
-                <div class="foto_card">
-                    <img src="${a.image}" alt="">
+                <div class="foto_card course-icons" aria-hidden="true">
+                    ${a.icons.map(icon => `<i class="${icon} course-icon"></i>`).join("")}
                 </div>
                 <h2>${a.titulo}</h2>
                 <p>${a.descricao}</p>
