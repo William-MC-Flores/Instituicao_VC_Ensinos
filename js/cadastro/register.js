@@ -1,4 +1,4 @@
-import { authPost } from "./auth-api.js";
+import { authPost, redirectToVerificationPending } from "./auth-api.js";
 
 const registerForm = document.getElementById("register-form");
 const errorMessage = document.getElementById("error-message");
@@ -20,7 +20,10 @@ registerForm?.addEventListener("submit", async (event) => {
       email: document.getElementById("email").value.trim(),
       password: document.getElementById("password").value,
     });
-    if (result.ok) successMessage.textContent = result.message;
+    if (result.ok) {
+      redirectToVerificationPending(emailInput.value);
+      return;
+    }
     else {
       errorMessage.textContent = result.message || "Confira os dados e tente novamente.";
       resendButton.hidden = result.status !== 503;
@@ -39,7 +42,10 @@ resendButton?.addEventListener("click", async () => {
   errorMessage.textContent = "";
   try {
     const result = await authPost("resend_verification", { email: emailInput.value.trim() });
-    if (result.ok) successMessage.textContent = result.message;
+    if (result.ok) {
+      redirectToVerificationPending(emailInput.value);
+      return;
+    }
     else errorMessage.textContent = result.message || "Não foi possível reenviar o link.";
   } catch (error) {
     errorMessage.textContent = "Não foi possível conectar ao servidor. Tente novamente.";

@@ -14,11 +14,50 @@ header('Cache-Control: no-store');
   <title>VC Ensinos | Nova senha</title>
   <link rel="shortcut icon" href="../img/logoPequenaBranca.png" type="image/x-icon">
   <link rel="stylesheet" href="../css/login_cadastro.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+  <script src="../js/theme.js"></script>
   <link rel="stylesheet" href="../css/design-system.css?v=20261012-email-verification">
 </head>
 <body>
-  <main class="login account-action-page">
-    <div class="container_login account-action-container">
+  <button class="theme-toggle theme-toggle--floating" type="button" data-theme-toggle aria-label="Ativar tema claro" title="Ativar tema claro">
+    <i class="fa-solid fa-sun" data-theme-icon aria-hidden="true"></i>
+    <span data-theme-label>Claro</span>
+  </button>
+  <main class="login">
+    <div class="container_login">
+      <section class="caixa_conteudo_login auth-visual" aria-label="Aprenda com a VC Ensinos">
+        <a class="auth-visual__brand" href="../index.php" aria-label="VC Ensinos - página inicial">
+          <img src="../img/logogGrandeBranca.png" alt="VC Ensinos">
+          <span>Aprenda. Ensine. Contribua.</span>
+        </a>
+        <div class="auth-visual__body">
+          <div class="auth-visual__intro">
+            <span class="auth-visual__eyebrow">ACESSO SEGURO</span>
+            <h2>Uma nova senha.<br>Uma nova etapa.</h2>
+            <p>Crie uma senha forte e volte a aprender com a VC Ensinos.</p>
+          </div>
+          <div class="auth-showcase" aria-hidden="true">
+            <div class="auth-showcase__top">
+              <span><i class="fa-solid fa-shield-halved"></i> PROTEÇÃO DA CONTA</span>
+              <span>VC ENSINOS</span>
+            </div>
+            <div class="auth-showcase__art">
+              <div class="auth-showcase__orbit"><i class="fa-solid fa-key"></i></div>
+              <div class="auth-showcase__code">
+                <span><i class="fa-solid fa-lock"></i> NOVA SENHA</span>
+                <strong>segurança <b>em</b><br>primeiro lugar</strong>
+                <div><i></i><i></i><i></i></div>
+              </div>
+              <div class="auth-showcase__badge"><i class="fa-solid fa-check"></i> Link de uso único</div>
+            </div>
+            <div class="auth-showcase__bottom">
+              <div><span>QUASE PRONTO</span><strong>Escolha uma senha com 8 ou mais caracteres</strong></div>
+              <i class="fa-solid fa-arrow-right"></i>
+            </div>
+          </div>
+        </div>
+        <div class="auth-visual__foot"><i class="fa-solid fa-heart" aria-hidden="true"></i> Conhecimento que cresce em comunidade.</div>
+      </section>
       <section class="login_form1 auth-form">
         <div class="form_inputs account-action-form">
           <div class="escrita_form auth-form__heading">

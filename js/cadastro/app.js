@@ -1,4 +1,4 @@
-import { authPost } from "./auth-api.js";
+import { authPost, redirectToVerificationPending } from "./auth-api.js";
 
 const loginForm = document.getElementById("login-form");
 const emailInput = document.getElementById("email");
@@ -43,7 +43,10 @@ resendButton?.addEventListener("click", async () => {
   showError("");
   try {
     const result = await authPost("resend_verification", { email: emailInput.value.trim() });
-    if (result.ok) showSuccess(result.message);
+    if (result.ok) {
+      redirectToVerificationPending(emailInput.value);
+      return;
+    }
     else showError(result.message || "Não foi possível reenviar o link.");
   } catch (error) {
     showError("Não foi possível conectar ao servidor. Tente novamente.");

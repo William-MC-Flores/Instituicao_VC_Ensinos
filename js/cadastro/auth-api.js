@@ -1,5 +1,14 @@
 const endpoint = new URL("../../php/api/auth.php", import.meta.url);
 
+export function redirectToVerificationPending(email) {
+  try {
+    sessionStorage.setItem("vcensinos-pending-verification-email", email.trim());
+  } catch {
+    // Continua para a tela de espera mesmo se o armazenamento da sessão estiver bloqueado.
+  }
+  window.location.assign(new URL("../../pages/aguardando-verificacao.html", import.meta.url));
+}
+
 export async function authPost(action, data = {}) {
   const csrfResponse = await fetch(`${endpoint.href}?action=csrf`, { credentials: "same-origin", cache: "no-store" });
   const csrf = await csrfResponse.json();

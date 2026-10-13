@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#100e13">
+  <title>VC Ensinos | Verifique seu e-mail</title>
+  <link rel="stylesheet" href="../css/login_cadastro.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+  <script src="../js/theme.js"></script>
+  <link rel="stylesheet" href="../css/design-system.css?v=20261012-email-verification">
+  <link rel="stylesheet" href="../css/verification-pending.css?v=20261012">
+  <link rel="shortcut icon" href="../img/logoPequenaBranca.png" type="image/x-icon">
+</head>
+<body>
+  <button class="theme-toggle theme-toggle--floating" type="button" data-theme-toggle aria-label="Ativar tema claro" title="Ativar tema claro">
+    <i class="fa-solid fa-sun" data-theme-icon aria-hidden="true"></i>
+    <span data-theme-label>Claro</span>
+  </button>
+  <main class="login">
+    <div class="container_login">
+      <section class="caixa_conteudo_login auth-visual" aria-label="Aprenda com a VC Ensinos">
+        <a class="auth-visual__brand" href="../index.php" aria-label="VC Ensinos - página inicial">
+          <img src="../img/logogGrandeBranca.png" alt="VC Ensinos">
+          <span>Aprenda. Ensine. Contribua.</span>
+        </a>
+        <div class="auth-visual__body">
+          <div class="auth-visual__intro">
+            <span class="auth-visual__eyebrow">SÓ MAIS UM PASSO</span>
+            <h2>Seu próximo passo começa na caixa de entrada.</h2>
+            <p>Confirme seu endereço para ativar sua conta e continuar sua jornada na tecnologia.</p>
+          </div>
+          <div class="auth-showcase" aria-hidden="true">
+            <div class="auth-showcase__top">
+              <span><i class="fa-solid fa-envelope-circle-check"></i> CONTA QUASE PRONTA</span>
+              <span>VC ENSINOS</span>
+            </div>
+            <div class="verification-pending__art">
+              <i class="fa-solid fa-envelope-open-text" aria-hidden="true"></i>
+              <span class="verification-pending__orbit verification-pending__orbit--one"></span>
+              <span class="verification-pending__orbit verification-pending__orbit--two"></span>
+            </div>
+            <div class="auth-showcase__bottom">
+              <div><span>CONFIRMAÇÃO SEGURA</span><strong>O link é pessoal e expira em 24 horas</strong></div>
+              <i class="fa-solid fa-shield-halved" aria-hidden="true"></i>
+            </div>
+          </div>
+        </div>
+        <div class="auth-visual__foot"><i class="fa-solid fa-heart" aria-hidden="true"></i> Conhecimento que cresce em comunidade.</div>
+      </section>
+
+      <section class="login_form1 auth-form" aria-labelledby="verification-title">
+        <div class="form_inputs account-action-form verification-pending">
+          <div class="auth-form__heading">
+            <span class="auth-form__eyebrow">CONFIRMAÇÃO DE E-MAIL</span>
+            <div class="verification-pending__status-icon" aria-hidden="true">
+              <i class="fa-solid fa-paper-plane"></i>
+            </div>
+            <h1 id="verification-title">Confira sua caixa de entrada.</h1>
+            <p>Se houver uma conta pendente para este endereço, enviaremos um link para confirmar seu e-mail.</p>
+            <p id="verification-email" class="verification-pending__email" hidden></p>
+          </div>
+          <ol class="verification-pending__steps">
+            <li><span>1</span><p>Abra o e-mail enviado pela <strong>VC Ensinos</strong>.</p></li>
+            <li><span>2</span><p>Clique em <strong>Confirmar meu e-mail</strong> para ativar sua conta.</p></li>
+            <li><span>3</span><p>Depois, volte ao login para acessar a plataforma.</p></li>
+          </ol>
+          <p class="verification-pending__tip"><i class="fa-solid fa-circle-info" aria-hidden="true"></i> Não encontrou? Confira as pastas de spam, lixo eletrônico e promoções. O link expira em 24 horas.</p>
+          <a class="verification-pending__back" href="login.html"><i class="fa-solid fa-arrow-left" aria-hidden="true"></i> Voltar ao login</a>
+        </div>
+      </section>
+    </div>
+  </main>
+  <script type="module" src="../js/cadastro/verification-pending.js"></script>
+</body>
+</html>

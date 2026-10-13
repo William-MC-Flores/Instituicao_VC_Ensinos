@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 require_once dirname(__DIR__) . '/includes/bootstrap.php';
 require_once dirname(__DIR__) . '/includes/mailer.php';
+require_once dirname(__DIR__) . '/includes/account-email-template.php';
 
 header('X-Content-Type-Options: nosniff');
 header('Referrer-Policy: same-origin');
@@ -31,30 +32,19 @@ function auth_send_account_link(string $purpose, string $email, string $name, st
 {
     $page = $purpose === 'email_verification' ? 'confirm-email.php' : 'reset-password.php';
     $url = rtrim((string) (app_config()['app_url'] ?? ''), '/') . '/pages/' . $page . '?token=' . rawurlencode($token);
-    $safeName = app_escape($name);
-    $safeUrl = app_escape($url);
     if ($purpose === 'email_verification') {
         $subject = 'Confirme seu e-mail | VC Ensinos';
-        $text = "Olá, {$name}!\n\nConfirme seu endereço de e-mail acessando este link:\n{$url}\n\nO link expira em 24 horas e pode ser usado uma única vez. Se você não criou esta conta, ignore esta mensagem.";
         $action = 'Confirmar meu e-mail';
         $intro = 'Confirme que este endereço de e-mail pertence a você para ativar sua conta.';
         $expiry = 'Este link expira em 24 horas.';
     } else {
         $subject = 'Redefina sua senha | VC Ensinos';
-        $text = "Olá, {$name}!\n\nPara escolher uma nova senha, acesse este link:\n{$url}\n\nO link expira em 30 minutos e pode ser usado uma única vez. Se você não solicitou a alteração, ignore esta mensagem.";
         $action = 'Redefinir minha senha';
         $intro = 'Recebemos uma solicitação para criar uma nova senha para sua conta.';
         $expiry = 'Este link expira em 30 minutos.';
     }
-    $html = '<!doctype html><html lang="pt-BR"><meta charset="utf-8"><body style="margin:0;padding:32px;background:#100e15;color:#f7f2fb;font-family:Arial,sans-serif">'
-        . '<main style="max-width:560px;margin:auto;padding:32px;border:1px solid #392c47;border-radius:16px;background:#17121d">'
-        . '<p style="color:#c5a0ed;font-weight:bold">VC ENSINOS</p><h1 style="font-size:24px">Olá, ' . $safeName . '!</h1>'
-        . '<p style="line-height:1.6">' . app_escape($intro) . '</p><p style="margin:28px 0">'
-        . '<a href="' . $safeUrl . '" style="padding:13px 18px;border-radius:9px;background:#8a55bd;color:#fff;text-decoration:none;font-weight:bold">'
-        . app_escape($action) . '</a></p><p>' . app_escape($expiry) . '</p>'
-        . '<p style="font-size:12px;color:#b9aec5;line-height:1.6">Se o botão não funcionar, copie este endereço para o navegador:<br>'
-        . '<a href="' . $safeUrl . '" style="color:#c5a0ed;word-break:break-all">' . $safeUrl . '</a></p></main></body></html>';
-    app_send_account_email($email, $name, $subject, $text, $html);
+    $content = app_account_email_content($purpose, $name, $action, $intro, $expiry, $url);
+    app_send_account_email($email, $name, $subject, $content['text'], $content['html']);
 }
 
 $action = (string) ($_GET['action'] ?? $_POST['action'] ?? '');

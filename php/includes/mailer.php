@@ -11,7 +11,7 @@ use PHPMailer\PHPMailer\PHPMailer;
 function app_send_account_email(string $recipient, string $recipientName, string $subject, string $text, string $html): void
 {
     $config = app_config();
-    $mailConfig = $config['mail'] ?? [];
+    $mailConfig = $config['mail'] ?? $config['smtp'] ?? [];
     foreach (['host', 'port', 'username', 'password', 'from_email', 'from_name'] as $required) {
         if (!isset($mailConfig[$required]) || (string) $mailConfig[$required] === '') {
             throw new RuntimeException('Configuração SMTP incompleta.');
@@ -31,7 +31,7 @@ function app_send_account_email(string $recipient, string $recipientName, string
     $mailer->Port = (int) $mailConfig['port'];
     $mailer->SMTPAuth = true;
     $mailer->Username = (string) $mailConfig['username'];
-    $mailer->Password = (string) $mailConfig['password'];
+    $mailer->Password = preg_replace('/\\s+/', '', (string) $mailConfig['password']);
     $mailer->SMTPSecure = strtolower((string) ($mailConfig['encryption'] ?? 'tls')) === 'ssl'
         ? PHPMailer::ENCRYPTION_SMTPS
         : PHPMailer::ENCRYPTION_STARTTLS;
