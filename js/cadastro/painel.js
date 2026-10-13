@@ -1,9 +1,13 @@
 import { authPost } from "./auth-api.js";
-import { workspaceGet, workspacePost, workspaceUpload } from "./workspace-api.js";
+import { workspaceGet, workspaceNotificationsGet, workspacePost, workspaceUpload } from "./workspace-api.js";
 
 const workspace = document.getElementById("profile-workspace");
 const message = document.getElementById("workspace-message");
 const logoutButton = document.getElementById("logout-button");
+const notificationToggle = workspace.querySelector("[data-notifications-toggle]");
+const notificationList = workspace.querySelector("[data-notification-list]");
+const notificationCount = workspace.querySelector("[data-notification-count]");
+const notificationsReadButton = workspace.querySelector("[data-notifications-read]");
 const roleNames = { student: "Aluno", collaborator: "Colaborador / professor", admin: "Administrador" };
 const planNames = { free: "Free", standard: "Standard", pro: "Pro" };
 
@@ -32,6 +36,40 @@ const fillSelect = (select, items, getValue, getLabel, placeholder) => {
 };
 
 const emptyState = (text) => `<p class="workspace-empty">${escapeHtml(text)}</p>`;
+
+const renderNotifications = (notifications) => {
+  const unreadCount = notifications.filter((notification) => !notification.read_at).length;
+  notificationCount.textContent = unreadCount > 99 ? "99+" : String(unreadCount);
+  notificationCount.hidden = unreadCount === 0;
+  notificationsReadButton.hidden = unreadCount === 0;
+  notificationList.innerHTML = notifications.length
+    ? notifications.map((notification) => {
+      const date = new Date(`${String(notification.created_at).replace(" ", "T")}Z`);
+      const dateLabel = Number.isNaN(date.getTime()) ? "" : new Intl.DateTimeFormat("pt-BR", {
+        dateStyle: "short", timeStyle: "short",
+      }).format(date);
+      const safeTarget = notification.target_url === "painel.php" ? "painel.php" : "";
+      const content = `<span class="notification-item__type">${escapeHtml({
+        submission_pending: "Revisão de conteúdo",
+        submission_reviewed: "Resultado da revisão",
+        new_student: "Nova inscrição",
+      }[notification.type] || "Atualização")}</span>
+        <strong>${escapeHtml(notification.title)}</strong><span>${escapeHtml(notification.message)}</span>
+        <time>${escapeHtml(dateLabel)}</time>`;
+      return safeTarget
+        ? `<a class="notification-item${notification.read_at ? "" : " is-unread"}" href="${safeTarget}">${content}</a>`
+        : `<article class="notification-item${notification.read_at ? "" : " is-unread"}">${content}</article>`;
+    }).join("")
+    : emptyState("Você ainda não tem notificações.");
+};
+
+const loadNotifications = async () => {
+  try {
+    renderNotifications(await workspaceNotificationsGet());
+  } catch (error) {
+    console.warn("Falha ao atualizar notificações:", error.message);
+  }
+};
 
 const renderProfile = (user) => {
   const form = workspace.querySelector("[data-profile-form]");
@@ -352,3 +390,20 @@ logoutButton?.addEventListener("click", async () => {
 });
 
 reload().catch((error) => console.error("Falha ao carregar o painel:", error));
+loadNotifications();
+window.setInterval(loadNotifications, 15000);
+
+notificationToggle.addEventListener("click", () => {
+  const isExpanded = notificationToggle.getAttribute("aria-expanded") === "true";
+  notificationToggle.setAttribute("aria-expanded", String(!isExpanded));
+  notificationList.hidden = isExpanded;
+});
+
+notificationsReadButton.addEventListener("click", async () => {
+  try {
+    await workspacePost("notifications_read");
+    await loadNotifications();
+  } catch (error) {
+    setMessage(error.message || "Não foi possível atualizar as notificações.", true);
+  }
+});

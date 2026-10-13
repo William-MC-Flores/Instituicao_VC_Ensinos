@@ -66,6 +66,18 @@ if (!$user || $user['email_verified_at'] === null) {
       </section>
       <p class="workspace-message" id="workspace-message" role="status" aria-live="polite"></p>
 
+      <section class="notification-center" aria-label="Notificações">
+        <div class="notification-center__toolbar">
+          <button type="button" class="notification-center__toggle" data-notifications-toggle aria-expanded="false" aria-controls="notification-list">
+            <i class="fa-regular fa-bell" aria-hidden="true"></i>
+            <span>Notificações</span>
+            <span class="notification-center__count" data-notification-count hidden>0</span>
+          </button>
+          <button type="button" class="notification-center__read" data-notifications-read hidden>Marcar todas como lidas</button>
+        </div>
+        <div class="notification-center__list" id="notification-list" data-notification-list hidden aria-live="polite"></div>
+      </section>
+
       <section class="workspace-section" data-profile-editor>
         <div class="profile-section-heading">
           <div><span class="profile-eyebrow">SUA IDENTIDADE</span><h2>Personalize seu perfil</h2></div>
@@ -226,6 +238,6 @@ if (!$user || $user['email_verified_at'] === null) {
       </section>
     </div>
   </main>
-  <script type="module" src="../js/cadastro/painel.js?v=20261012-subject-areas"></script>
+  <script type="module" src="../js/cadastro/painel.js?v=20261013-notifications"></script>
 </body>
 </html>

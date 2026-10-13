@@ -34,6 +34,33 @@ function workspace_require_role(array $user, array $roles): void
     }
 }
 
+function workspace_create_notification(PDO $pdo, int $recipientId, string $type, string $title, string $message, string $url = ''): void
+{
+    $statement = $pdo->prepare(
+        'INSERT INTO notifications (user_id, type, title, message, target_url) VALUES (?, ?, ?, ?, ?)'
+    );
+    $statement->execute([$recipientId, $type, $title, $message, $url !== '' ? $url : null]);
+}
+
+function workspace_notify_administrators(PDO $pdo, string $type, string $title, string $message, string $url = ''): void
+{
+    $statement = $pdo->prepare(
+        "INSERT INTO notifications (user_id, type, title, message, target_url) "
+        . "SELECT id, ?, ?, ?, ? FROM users WHERE role = 'admin'"
+    );
+    $statement->execute([$type, $title, $message, $url !== '' ? $url : null]);
+}
+
+function workspace_read_notifications(PDO $pdo, int $userId): array
+{
+    $statement = $pdo->prepare(
+        'SELECT id, type, title, message, target_url, created_at, read_at '
+        . 'FROM notifications WHERE user_id = ? ORDER BY id DESC LIMIT 30'
+    );
+    $statement->execute([$userId]);
+    return $statement->fetchAll();
+}
+
 function workspace_text_length(string $value): int
 {
     if (function_exists('mb_strlen')) {
@@ -280,6 +307,10 @@ try {
         app_json_response(200, ['ok' => true, 'data' => workspace_read_data($pdo, $user)]);
     }
 
+    if ($method === 'GET' && $action === 'notifications') {
+        app_json_response(200, ['ok' => true, 'notifications' => workspace_read_notifications($pdo, (int) $user['id'])]);
+    }
+
     if ($method !== 'POST') {
         app_json_response(405, ['ok' => false, 'message' => 'Método não permitido.']);
     }
@@ -395,6 +426,15 @@ try {
             }
             $statement = $pdo->prepare('INSERT INTO class_enrollments (class_id, student_id) VALUES (?, ?)');
             $statement->execute([$classId, (int) $user['id']]);
+            $statement = $pdo->prepare(
+                'SELECT cc.collaborator_id, c.name AS class_name FROM class_collaborators cc '
+                . 'JOIN classes c ON c.id = cc.class_id WHERE cc.class_id = ?'
+            );
+            $statement->execute([$classId]);
+            foreach ($statement->fetchAll() as $assignment) {
+                workspace_create_notification($pdo, (int) $assignment['collaborator_id'], 'new_student',
+                    'Novo aluno na sua turma', $user['name'] . ' entrou na turma ' . $assignment['class_name'] . '.', 'painel.php');
+            }
             $pdo->commit();
             app_json_response(201, ['ok' => true, 'message' => 'Inscrição confirmada para esta turma.']);
         }
@@ -660,6 +700,7 @@ try {
                     app_json_response(403, ['ok' => false, 'message' => 'Você não está atribuído a esta turma.']);
                 }
             }
+            $pdo->beginTransaction();
             $statement = $pdo->prepare(
                 "INSERT INTO content_submissions "
                 . "(discipline_slug, class_id, submitted_by, title, content_type, description, resource_url) "
@@ -674,6 +715,14 @@ try {
                 $description,
                 $resourceUrl !== '' ? $resourceUrl : null,
             ]);
+            workspace_notify_administrators(
+                $pdo,
+                'submission_pending',
+                'Novo conteudo para revisao',
+                $user['name'] . ' enviou "' . $title . '" para aprovacao.',
+                'painel.php'
+            );
+            $pdo->commit();
             app_json_response(201, ['ok' => true, 'message' => 'Conteúdo enviado para aprovação administrativa.']);
         }
 
@@ -684,15 +733,39 @@ try {
             if (!$submissionId || $submissionId < 1 || !in_array($status, ['approved', 'rejected'], true)) {
                 app_json_response(422, ['ok' => false, 'message' => 'Revisão inválida.']);
             }
+            $pdo->beginTransaction();
+            $statement = $pdo->prepare('SELECT submitted_by, title FROM content_submissions WHERE id = ? AND status = \'pending\' FOR UPDATE');
+            $statement->execute([$submissionId]);
+            $submission = $statement->fetch();
+            if (!$submission) {
+                $pdo->rollBack();
+                app_json_response(409, ['ok' => false, 'message' => 'Conteudo ja revisado ou inexistente.']);
+            }
             $statement = $pdo->prepare(
                 "UPDATE content_submissions SET status = ?, reviewed_by = ?, reviewed_at = NOW() "
                 . "WHERE id = ? AND status = 'pending'"
             );
             $statement->execute([$status, (int) $user['id'], $submissionId]);
+            $approved = $status === 'approved';
+            workspace_create_notification(
+                $pdo,
+                (int) $submission['submitted_by'],
+                'submission_reviewed',
+                $approved ? 'Conteúdo aprovado' : 'Conteúdo recusado',
+                'Seu conteúdo "' . $submission['title'] . '" foi ' . ($approved ? 'aprovado.' : 'recusado.'),
+                'painel.php'
+            );
+            $pdo->commit();
             if ($statement->rowCount() === 0) {
                 app_json_response(409, ['ok' => false, 'message' => 'Este conteúdo já foi revisado ou não existe.']);
             }
             app_json_response(200, ['ok' => true, 'message' => $status === 'approved' ? 'Conteúdo aprovado.' : 'Conteúdo recusado.']);
+        }
+
+        case 'notifications_read': {
+            $statement = $pdo->prepare('UPDATE notifications SET read_at = NOW() WHERE user_id = ? AND read_at IS NULL');
+            $statement->execute([(int) $user['id']]);
+            app_json_response(200, ['ok' => true, 'message' => 'Notificacoes marcadas como lidas.']);
         }
 
         default:

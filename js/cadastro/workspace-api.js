@@ -13,6 +13,18 @@ export async function workspaceGet() {
   return result.data;
 }
 
+export async function workspaceNotificationsGet() {
+  const response = await fetch(`${endpoint.href}?action=notifications`, {
+    credentials: "same-origin",
+    cache: "no-store",
+  });
+  const result = await response.json().catch(() => null);
+  if (!response.ok || !result?.ok) {
+    throw new Error(result?.message || "Não foi possível carregar as notificações.");
+  }
+  return result.notifications || [];
+}
+
 export async function workspacePost(action, data = {}) {
   const csrfResponse = await fetch(`${authEndpoint.href}?action=csrf`, {
     credentials: "same-origin",
