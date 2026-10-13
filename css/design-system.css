@@ -6512,3 +6512,508 @@ html[data-theme="light"] .membership-plan--featured {
     transition-duration: 0.01ms !important;
   }
 }
+
+/* Ajustes finais de layout para tablets e celulares. */
+@media (max-width: 900px) {
+  .container_index {
+    grid-template-columns: minmax(0, 1fr);
+    padding: 16px clamp(16px, 4vw, 32px) 0;
+  }
+
+  .dilema {
+    grid-column: 1;
+    grid-row: auto;
+    width: 100%;
+    min-height: 0;
+    height: auto;
+    padding: 28px 0;
+    box-sizing: border-box;
+  }
+
+  .foto_index {
+    grid-column: 1;
+    grid-row: auto;
+    width: 100%;
+    padding: 16px 0;
+  }
+
+  .container_dilema {
+    width: 100%;
+    height: auto;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .caixa_dilema,
+  .caixa_dilema:last-child {
+    width: min(31%, 250px);
+    min-width: 0;
+    min-height: 112px;
+    height: auto;
+    margin: 0;
+  }
+
+  .container_exibir,
+  .container {
+    width: min(100% - 32px, 1100px);
+    height: auto;
+  }
+
+  .tit {
+    width: min(100% - 32px, 1100px);
+    height: auto;
+  }
+
+  #quem_somos,
+  #contato {
+    height: auto;
+  }
+
+  .texto {
+    width: min(100%, 600px);
+    height: auto;
+  }
+
+  #xiru,
+  .container > img {
+    width: min(100%, 500px);
+    height: auto;
+  }
+
+  #contato iframe {
+    width: min(100%, 560px);
+    height: auto;
+    aspect-ratio: 16 / 9;
+  }
+
+  .cursos_exibir {
+    height: auto;
+    min-height: 0;
+    padding: 40px 0;
+  }
+
+  .container_header_disciplinas {
+    width: 100%;
+    min-width: 0;
+    flex-wrap: wrap;
+    gap: 10px 16px;
+    padding: 4px 0;
+    box-sizing: border-box;
+  }
+
+  .links_disciplinas {
+    width: auto;
+    min-width: 0;
+    flex: 1 1 420px;
+    flex-wrap: wrap;
+    gap: 6px 12px;
+  }
+
+  .links_disciplinas a {
+    margin: 0;
+  }
+
+  .acoes_disciplinas {
+    width: auto;
+    min-width: 0;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    gap: 8px;
+  }
+
+  #cadastre-se,
+  #painelButton,
+  #logout-button {
+    width: auto;
+    min-width: 76px;
+    height: 38px;
+    padding: 0 12px;
+    border-radius: 999px;
+  }
+
+  .container_disciplinas,
+  .conteudo_disciplinas {
+    width: min(100% - 32px, 1100px);
+    height: auto;
+  }
+
+  #disciplinas {
+    height: auto;
+    min-height: 0;
+    padding: 18px 0;
+    box-sizing: border-box;
+  }
+
+  .container_disciplinas {
+    min-height: 0;
+  }
+
+  .escrita_disciplinas {
+    width: 100%;
+    height: auto;
+    align-items: flex-start;
+    text-align: left;
+  }
+
+  .escrita_disciplinas p {
+    width: auto;
+  }
+
+  .conteudo_disciplinas {
+    align-items: stretch;
+    gap: 12px;
+    padding: 12px 0;
+    box-sizing: border-box;
+  }
+
+  .cabecario_disciplinas {
+    width: 100%;
+    height: auto;
+    min-height: 0;
+  }
+
+  .filtro_categorias {
+    display: grid;
+    width: 100%;
+    grid-template-columns: repeat(auto-fit, minmax(96px, 1fr));
+    gap: 8px;
+  }
+
+  .filtro_categorias button {
+    width: 100%;
+    min-height: 40px;
+    height: auto;
+    margin: 0;
+    padding: 8px;
+    box-sizing: border-box;
+  }
+
+  .pesquisar {
+    width: min(100%, 360px);
+    height: auto;
+    justify-content: flex-start;
+  }
+
+  .barra_pesquisa,
+  #pesquisarInput {
+    width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
+  }
+
+  .cards {
+    width: 100%;
+    height: auto;
+  }
+}
+
+@media (max-width: 700px) {
+  html,
+  body {
+    max-width: 100%;
+    overflow-x: clip;
+  }
+
+  body:not(:has(.login)) {
+    padding: 0;
+  }
+
+  body:not(:has(.login)) > header {
+    height: auto;
+    min-height: 0;
+    padding: 10px 16px;
+  }
+
+  .container_header_disciplinas {
+    align-items: stretch;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .links_disciplinas {
+    display: grid;
+    width: 100%;
+    flex: 1 1 auto;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 4px 10px;
+  }
+
+  .links_disciplinas a {
+    min-width: 0;
+    min-height: 38px;
+    gap: 7px;
+    font-size: 12px;
+  }
+
+  .links_disciplinas a:first-child {
+    grid-column: 1 / -1;
+    min-height: 48px;
+  }
+
+  .container_header_disciplinas img {
+    width: 96px;
+    max-width: 100%;
+    height: auto;
+    max-height: 48px;
+    margin: 0;
+  }
+
+  .acoes_disciplinas {
+    justify-content: flex-start;
+  }
+
+  .acoes_disciplinas .theme-toggle {
+    min-height: 38px;
+  }
+
+  .container_index {
+    display: flex;
+    align-items: stretch;
+    padding: 0 16px;
+  }
+
+  .dilema {
+    order: 0;
+    align-items: flex-start;
+    padding: 32px 0 24px;
+  }
+
+  .dilema > h2 {
+    max-width: 100%;
+    font-size: clamp(30px, 8vw, 42px);
+    line-height: 1.08;
+  }
+
+  .container_dilema {
+    flex-wrap: nowrap;
+    gap: 8px;
+  }
+
+  .caixa_dilema,
+  .caixa_dilema:last-child {
+    width: calc((100% - 16px) / 3);
+    min-height: 96px;
+    padding: 8px 5px;
+    box-sizing: border-box;
+  }
+
+  .caixa_dilema h2 {
+    font-size: clamp(11px, 3vw, 14px);
+  }
+
+  .foto_index {
+    order: 1;
+    padding: 8px 0 22px;
+  }
+
+  .container_foto {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1671 / 941;
+  }
+
+  .membership-plans {
+    width: 100%;
+    margin: 44px auto;
+  }
+
+  .cursos_exibir {
+    padding: 32px 0;
+  }
+
+  .pesquisar {
+    width: 100%;
+    max-width: none;
+    margin: 0;
+  }
+
+  .container_exibir,
+  #cards_exibir {
+    width: 100%;
+    min-width: 0;
+  }
+
+  #cards_exibir {
+    height: auto;
+    min-height: 0;
+    gap: 12px;
+  }
+
+  #quem_somos,
+  #contato {
+    padding: 34px 16px;
+  }
+
+  .tit {
+    width: 100%;
+    margin: 0 0 20px;
+  }
+
+  .container {
+    display: flex;
+    width: 100%;
+    height: auto;
+    align-items: stretch;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .texto {
+    width: 100%;
+    height: auto;
+    text-align: left;
+  }
+
+  #xiru,
+  .container > img,
+  #contato iframe {
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+  }
+
+  #contato iframe {
+    aspect-ratio: 16 / 9;
+  }
+
+  .cards_all {
+    padding: 18px 16px 32px;
+  }
+
+  .cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 250px), 1fr));
+    gap: 12px;
+  }
+
+  .card {
+    width: 100%;
+    min-width: 0;
+    height: auto;
+    min-height: 190px;
+    margin: 0;
+    box-sizing: border-box;
+  }
+
+  .container_card,
+  .escrita_card,
+  .item_dificuldade {
+    width: 100%;
+    height: auto;
+  }
+
+  .escrita_card p {
+    width: auto;
+    max-width: 100%;
+  }
+
+  .descricao {
+    width: 100%;
+    height: 100%;
+  }
+
+  footer {
+    height: auto;
+    min-height: 0;
+    padding: 30px 16px 14px;
+  }
+
+  .container_footer {
+    width: 100%;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 28px 16px;
+  }
+
+  .footer_brand {
+    grid-column: 1 / -1;
+  }
+
+  .footer_contact {
+    min-width: 0;
+    overflow-wrap: anywhere;
+  }
+
+  .footer_bottom {
+    margin: 24px 0 0;
+  }
+
+  .footer_bottom_inner {
+    width: 100%;
+    min-height: 0;
+  }
+
+  body:has(.all) {
+    padding: 0;
+  }
+
+  body:has(.all) > header {
+    height: auto;
+    min-height: 0;
+  }
+
+  .container_header_curso {
+    width: 100%;
+  }
+
+  .all,
+  .conteudos,
+  .topicos {
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
+  }
+
+  .conteudo,
+  .container_conteudo,
+  .conteudo_video {
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
+  }
+
+  .conteudo_video iframe {
+    width: 100%;
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 420px) {
+  .container_index {
+    padding-right: 12px;
+    padding-left: 12px;
+  }
+
+  .dilema > h2 {
+    font-size: clamp(27px, 8vw, 34px);
+  }
+
+  .container_dilema {
+    gap: 6px;
+  }
+
+  .caixa_dilema,
+  .caixa_dilema:last-child {
+    width: calc((100% - 12px) / 3);
+  }
+
+  .caixa_dilema h2 {
+    font-size: 11px;
+  }
+
+  .links_disciplinas {
+    gap: 2px 6px;
+  }
+
+  .links_disciplinas a {
+    font-size: 11px;
+  }
+
+  .container_footer {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .footer_brand {
+    grid-column: auto;
+  }
+}
